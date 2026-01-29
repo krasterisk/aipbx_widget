@@ -7,6 +7,7 @@ import { Logger } from './utils/logger.js';
 
 /**
  * Main AI Voice Widget Class
+ * Version: 1.0.x
  */
 class AIVoiceWidget {
     constructor(publicKey, apiUrl) {
