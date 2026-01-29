@@ -1,0 +1,26 @@
+{
+    "name": "ai-pbx-widget",
+    "version": "1.0.0",
+    "description": "Embeddable AI PBX widget with WebRTC",
+    "type": "module",
+    "main": "dist/widget.js",
+    "scripts": {
+        "build": "rollup -c --environment NODE_ENV:production",
+        "dev": "rollup -c -w",
+        "serve": "http-server dist -c-1 -p 8080"
+    },
+    "keywords": [
+        "ai",
+        "pbx",
+        "widget",
+        "webrtc"
+    ],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@rollup/plugin-terser": "^0.4.4",
+        "rollup": "^4.9.6",
+        "rollup-plugin-postcss": "^4.0.2",
+        "http-server": "^14.1.1"
+    }
+}
