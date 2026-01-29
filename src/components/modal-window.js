@@ -17,7 +17,7 @@ export class ModalWindow extends EventEmitter {
         modal.className = 'ai-widget-modal';
         modal.innerHTML = `
       <div class="modal-header">
-        <h3>${this.config.assistantName || 'AI Assistant'}</h3>
+        <h3>${this.config.assistantName || 'aiPBX widget'}</h3>
         <button class="close-btn" aria-label="Close">&times;</button>
       </div>
       <div class="modal-body">

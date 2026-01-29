@@ -13,7 +13,7 @@ class AIVoiceWidget {
         this.publicKey = publicKey;
         this.apiUrl = apiUrl;
         this.config = null;
-        this.logger = new Logger('AIWidget');
+        this.logger = new Logger('aiPBX widget');
 
         // Components
         this.api = new ApiClient(apiUrl);
@@ -46,7 +46,7 @@ class AIVoiceWidget {
             this.logger.log('Widget initialized successfully');
         } catch (error) {
             this.logger.error('Failed to initialize widget:', error);
-            this.showError('Failed to initialize AI assistant. Please check your configuration.');
+            this.showError('Failed to initialize aiPBX widget. Please check your configuration.');
         }
     }
 
@@ -168,7 +168,7 @@ class AIVoiceWidget {
     }
 
     exposePublicAPI() {
-        window.AIWidget = {
+        window.aiPBXWidget = {
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),
@@ -192,7 +192,7 @@ class AIVoiceWidget {
 (function () {
     const scriptTag = document.currentScript;
     if (!scriptTag) {
-        console.error('[AI Widget] Could not find script tag');
+        console.error('[aiPBX widget] Could not find script tag');
         return;
     }
 
@@ -200,7 +200,7 @@ class AIVoiceWidget {
     const apiUrl = scriptTag.getAttribute('data-api') || 'http://localhost:3000';
 
     if (!publicKey) {
-        console.error('[AI Widget] Missing data-key attribute');
+        console.error('[aiPBX widget] Missing data-key attribute');
         return;
     }
 
