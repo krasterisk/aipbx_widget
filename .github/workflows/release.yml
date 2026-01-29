@@ -46,12 +46,15 @@ jobs:
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
       - name: Build
-        run: npm run build
+        run: |
+          mkdir -p dist
+          npm run build
+          ls -R dist/
 
       - name: Commit and Push
         run: |
-          git add package.json package-lock.json dist/widget.min.js
-          git commit -m "chore: release v${{ env.VERSION }} [skip ci]"
+          git add .
+          git commit -m "chore: release v${{ env.VERSION }} [skip ci]" || echo "No changes to commit"
           git tag v${{ env.VERSION }}
           git push origin main --tags
 
