@@ -20,29 +20,25 @@ npm run dev
 npm run build
 ```
 
-Результат: `dist/widget.js`
+Результат: `dist/widget.min.js` (prod) или `dist/widget.js` (dev)
 
 ## Использование
 
 ### Базовая интеграция
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My Website</title>
-</head>
-<body>
-  <h1>Welcome to my website</h1>
-  
-  <!-- AI Widget -->
-  <script 
-    src="http://localhost:3000/widget.js"
-    data-key="wk_your_public_key_here"
-    data-api="http://localhost:3000"
-  ></script>
-</body>
-</html>
+<!-- Production (via jsDelivr) -->
+<script 
+  src="https://cdn.jsdelivr.net/gh/krasterisk/aipbx_widget@latest/dist/widget.min.js"
+  data-key="wk_your_public_key_here"
+></script>
+
+<!-- Development (local) -->
+<script 
+  src="./dist/widget.js"
+  data-key="wk_your_public_key_here"
+  data-api="http://localhost:3000"
+></script>
 ```
 
 ### Атрибуты
@@ -54,11 +50,11 @@ npm run build
 
 ```javascript
 // Глобальный API доступен после инициализации
-window.AIWidget.show();      // Показать модальное окно
-window.AIWidget.hide();     // Скрыть модальное окно
-window.AIWidget.start();     // Начать разговор
-window.AIWidget.stop();      // Остановить разговор
-window.AIWidget.isActive();  // Проверить статус сессии
+window.aiPBXWidget.show();      // Показать модальное окно
+window.aiPBXWidget.hide();     // Скрыть модальное окно
+window.aiPBXWidget.start();     // Начать разговор
+window.aiPBXWidget.stop();      // Остановить разговор
+window.aiPBXWidget.isActive();  // Проверить статус сессии
 ```
 
 ## Development
@@ -88,7 +84,8 @@ public/widget/
 │       ├── events.js        # EventEmitter
 │       └── logger.js        # Logger
 ├── dist/
-│   └── widget.js            # Compiled bundle
+│   ├── widget.min.js        # Production bundle (minified)
+│   └── widget.js            # Development bundle (with sourcemaps)
 ├── package.json
 ├── rollup.config.js
 └── README.md
