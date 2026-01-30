@@ -11,6 +11,7 @@ export class WebRTCManager extends EventEmitter {
         this.api = apiClient;
         this.userAgent = null;
         this.session = null;
+        this.remoteAudio = new Audio();
         this.logger = new Logger('SIP');
     }
 
@@ -125,9 +126,8 @@ export class WebRTCManager extends EventEmitter {
         });
 
         if (remoteStream.getTracks().length > 0) {
-            const audioElement = new Audio();
-            audioElement.srcObject = remoteStream;
-            audioElement.play().catch(e => this.logger.error('Failed to play remote audio:', e));
+            this.remoteAudio.srcObject = remoteStream;
+            this.remoteAudio.play().catch(e => this.logger.error('Failed to play remote audio:', e));
             this.emit('audioReceived', remoteStream);
         }
     }
@@ -181,6 +181,10 @@ export class WebRTCManager extends EventEmitter {
     }
 
     cleanup() {
+        if (this.remoteAudio) {
+            this.remoteAudio.pause();
+            this.remoteAudio.srcObject = null;
+        }
         this.session = null;
         this.userAgent = null;
     }

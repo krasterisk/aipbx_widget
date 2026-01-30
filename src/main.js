@@ -47,7 +47,13 @@ class AIVoiceWidget {
             this.logger.log('Widget initialized successfully');
         } catch (error) {
             this.logger.error('Failed to initialize widget:', error);
-            this.showError('Failed to initialize aiPBX widget. Please check your configuration.');
+
+            let message = 'Failed to initialize aiPBX widget. Please check your configuration.';
+            if (error.message === 'INVALID_KEY') message = 'Invalid widget key. Please check your public key.';
+            if (error.message === 'KEY_INACTIVE') message = 'This widget is inactive. Please contact support.';
+            if (error.message === 'NETWORK_ERROR') message = 'Network error. Please check your internet connection.';
+
+            this.showError(message);
         }
     }
 
@@ -168,7 +174,7 @@ class AIVoiceWidget {
     }
 
     exposePublicAPI() {
-        window.aiPBXWidget = {
+        window.AIWidget = {
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),
@@ -205,8 +211,10 @@ class AIVoiceWidget {
     }
 
     const initWidget = () => {
+        if (window.__aiPBXWidgetInstance) return;
         const widget = new AIVoiceWidget(publicKey, apiUrl);
         widget.init();
+        window.__aiPBXWidgetInstance = widget;
     };
 
     if (document.readyState === 'loading') {

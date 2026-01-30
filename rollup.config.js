@@ -10,7 +10,7 @@ export default {
     output: {
         file: production ? 'dist/widget.min.js' : 'dist/widget.js',
         format: 'iife',
-        name: 'aiPBXWidget',
+        name: 'AIWidget',
         sourcemap: !production
     },
     plugins: [
