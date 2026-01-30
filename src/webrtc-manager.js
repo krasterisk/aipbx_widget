@@ -54,7 +54,15 @@ export class WebRTCManager extends EventEmitter {
 
             // 2. Create Inviter (call to extension)
             const target = UserAgent.makeURI(`sip:${extension}@${sipDomain}`);
+
+            const extraHeaders = [
+                `X-Widget-Key: ${publicKey}`
+            ];
+
+            this.logger.debug('Sending INVITE with headers:', extraHeaders);
+
             this.session = new Inviter(this.userAgent, target, {
+                extraHeaders,
                 sessionDescriptionHandlerOptions: {
                     constraints: {
                         audio: true,
@@ -88,11 +96,9 @@ export class WebRTCManager extends EventEmitter {
                 }
             });
 
-            // 4. Send Invite with custom header for identification
+            // 4. Send Invite 
             await this.session.invite({
-                extraHeaders: [
-                    `X-Widget-Key: ${publicKey}`
-                ]
+                extraHeaders
             });
 
             // 5. Setup local media monitoring for the visualizer
