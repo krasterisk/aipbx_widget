@@ -112,8 +112,7 @@ class AIVoiceWidget {
 
     async startSession() {
         try {
-            const domain = window.location.hostname;
-            await this.webrtc.startSession(this.publicKey, domain);
+            await this.webrtc.startSession(this.publicKey, this.config);
         } catch (error) {
             this.logger.error('Failed to start session:', error);
         }

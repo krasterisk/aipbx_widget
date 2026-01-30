@@ -3,7 +3,7 @@
     "version": "1.0.1",
     "description": "Embeddable aiPBX widget with WebRTC",
     "type": "module",
-    "main": "dist/widget.js",
+    "main": "dist/widget.min.js",
     "scripts": {
         "build": "rollup -c --environment NODE_ENV:production",
         "dev": "rollup -c -w",
@@ -18,9 +18,14 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
+        "@rollup/plugin-commonjs": "^29.0.0",
+        "@rollup/plugin-node-resolve": "^16.0.3",
         "@rollup/plugin-terser": "^0.4.4",
+        "http-server": "^14.1.1",
         "rollup": "^4.9.6",
-        "rollup-plugin-postcss": "^4.0.2",
-        "http-server": "^14.1.1"
+        "rollup-plugin-postcss": "^4.0.2"
+    },
+    "dependencies": {
+        "sip.js": "^0.21.2"
     }
 }
