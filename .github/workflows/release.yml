@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -28,35 +26,20 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Install dependencies
         run: npm ci
 
-      - name: Increase version
-        id: versioning
+      - name: Get version from package.json
+        id: package-version
         run: |
-          # Bump version without creating a tag/commit yet
-          npm version patch --no-git-tag-version
-          NEW_VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
-          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build
         run: |
           mkdir -p dist
           npm run build
-          ls -R dist/
-
-      - name: Commit and Push
-        run: |
-          git add .
-          git commit -m "chore: release v${{ env.VERSION }} [skip ci]" || echo "No changes to commit"
-          git tag v${{ env.VERSION }}
-          git push origin main --tags
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
