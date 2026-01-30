@@ -6,10 +6,9 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'package.json'
-      - 'package-lock.json'
       - 'dist/**'
-      - '.github/workflows/**'
+      - 'README.md'
+      - '.gitignore'
 
 jobs:
   release:
