@@ -67,9 +67,8 @@ class AIVoiceWidget {
 
         // Modal
         this.modal.on('close', () => {
-            if (this.isSessionActive) {
-                this.stopSession();
-            }
+            // Always try to stop if there was an attempt to start
+            this.stopSession();
         });
 
         this.modal.on('start', () => {
@@ -126,7 +125,13 @@ class AIVoiceWidget {
 
     async stopSession() {
         try {
+            // 1. SIP Hangup
             await this.webrtc.stopSession();
+
+            // 2. HTTP Hangup as backup for backend
+            await this.api.sendHangup(this.publicKey);
+
+            this.isSessionActive = false;
         } catch (error) {
             this.logger.error('Failed to stop session:', error);
         }

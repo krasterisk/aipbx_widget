@@ -171,18 +171,30 @@ export class WebRTCManager extends EventEmitter {
     async stopSession() {
         this.logger.log('Stopping SIP session...');
 
+        const session = this.session;
+        const ua = this.userAgent;
+
+        // Clear references immediately to prevent race conditions
+        this.cleanup();
+
         try {
-            if (this.session) {
-                await this.session.hangup();
+            const tasks = [];
+            if (session) {
+                this.logger.debug('Terminating SIP session');
+                tasks.push(session.hangup().catch(e => this.logger.error('Session hangup failed:', e)));
             }
-            if (this.userAgent) {
-                await this.userAgent.stop();
+            if (ua) {
+                this.logger.debug('Stopping SIP UserAgent (closing transport)');
+                tasks.push(ua.stop().catch(e => this.logger.error('UA stop failed:', e)));
+            }
+
+            if (tasks.length > 0) {
+                await Promise.allSettled(tasks);
             }
         } catch (error) {
-            this.logger.error('Error during SIP logout:', error);
+            this.logger.error('Error during stop sequences:', error);
         }
 
-        this.cleanup();
         this.emit('stopped');
     }
 

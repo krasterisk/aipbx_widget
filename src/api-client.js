@@ -31,4 +31,19 @@ export class ApiClient {
             throw error;
         }
     }
+
+    async sendHangup(publicKey) {
+        try {
+            this.logger.log('Sending HTTP hangup for key:', publicKey);
+            await fetch(`${this.baseUrl}/widget/hangup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ publicKey })
+            });
+        } catch (error) {
+            this.logger.error('Failed to send HTTP hangup:', error);
+        }
+    }
 }
