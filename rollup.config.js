@@ -25,7 +25,7 @@ export default {
         }),
         production && terser({
             compress: {
-                drop_console: true,
+                drop_console: false, // Разрешаем логи для отладки
                 drop_debugger: true
             }
         })

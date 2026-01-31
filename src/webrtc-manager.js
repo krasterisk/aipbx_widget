@@ -11,6 +11,7 @@ export class WebRTCManager extends EventEmitter {
         this.api = apiClient;
         this.userAgent = null;
         this.session = null;
+        this.localStream = null;
         this.remoteAudio = new Audio();
         this.logger = new Logger('SIP');
     }
@@ -155,6 +156,7 @@ export class WebRTCManager extends EventEmitter {
 
             if (localStream.getTracks().length > 0) {
                 this.logger.log('Local stream captured');
+                this.localStream = localStream;
                 this.emit('microphoneGranted', localStream);
             } else {
                 // Try again in a short delay if not yet available
@@ -210,6 +212,13 @@ export class WebRTCManager extends EventEmitter {
             this.remoteAudio.pause();
             this.remoteAudio.srcObject = null;
         }
+
+        if (this.localStream) {
+            this.logger.log('Stopping local audio tracks');
+            this.localStream.getTracks().forEach(track => track.stop());
+            this.localStream = null;
+        }
+
         this.session = null;
         this.userAgent = null;
     }
