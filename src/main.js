@@ -24,6 +24,7 @@ class AIVoiceWidget {
 
         // State
         this.isSessionActive = false;
+        this.isStopping = false;
     }
 
     async init() {
@@ -124,16 +125,26 @@ class AIVoiceWidget {
     }
 
     async stopSession() {
-        try {
-            // 1. SIP Hangup
-            await this.webrtc.stopSession();
+        if (this.isStopping) return;
+        this.isStopping = true;
 
-            // 2. HTTP Hangup as backup for backend
-            await this.api.sendHangup(this.publicKey);
+        this.logger.log('Stopping session...');
+
+        try {
+            // Initiate both SIP and HTTP hangups simultaneously
+            // We don't want SIP failure to block HTTP notification
+            const stopTasks = [
+                this.webrtc.stopSession().catch(e => this.logger.error('SIP stop error:', e)),
+                this.api.sendHangup(this.publicKey).catch(e => this.logger.error('HTTP hangup error:', e))
+            ];
+
+            await Promise.allSettled(stopTasks);
 
             this.isSessionActive = false;
         } catch (error) {
             this.logger.error('Failed to stop session:', error);
+        } finally {
+            this.isStopping = false;
         }
     }
 

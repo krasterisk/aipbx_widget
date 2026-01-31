@@ -181,15 +181,22 @@ export class WebRTCManager extends EventEmitter {
             const tasks = [];
             if (session) {
                 this.logger.debug('Terminating SIP session');
-                tasks.push(session.hangup().catch(e => this.logger.error('Session hangup failed:', e)));
+                // Using .terminate() as it's more definitive (handles BYE/CANCEL)
+                tasks.push(session.terminate().catch(e => this.logger.error('Session terminate failed:', e)));
             }
             if (ua) {
-                this.logger.debug('Stopping SIP UserAgent (closing transport)');
+                this.logger.debug('Stopping SIP UserAgent');
                 tasks.push(ua.stop().catch(e => this.logger.error('UA stop failed:', e)));
             }
 
             if (tasks.length > 0) {
-                await Promise.allSettled(tasks);
+                // Safety timeout: don't wait more than 2 seconds for SIP to close
+                const timeout = new Promise(resolve => setTimeout(resolve, 2000));
+                await Promise.race([
+                    Promise.allSettled(tasks),
+                    timeout
+                ]);
+                this.logger.debug('Stop tasks settled or timed out');
             }
         } catch (error) {
             this.logger.error('Error during stop sequences:', error);
