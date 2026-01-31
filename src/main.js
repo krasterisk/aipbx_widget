@@ -29,6 +29,7 @@ class AIVoiceWidget {
 
     async init() {
         try {
+            console.log('%c[aiPBX Widget] Version: 1.1.2', 'color: #667eea; font-weight: bold; font-size: 12px;');
             this.logger.log('Initializing widget with key:', this.publicKey);
 
             // Fetch configuration
@@ -191,6 +192,7 @@ class AIVoiceWidget {
 
     exposePublicAPI() {
         window.AIWidget = {
+            version: '1.1.2',
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),

@@ -1,6 +1,6 @@
 {
     "name": "ai-pbx-widget",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "Embeddable aiPBX widget with WebRTC",
     "type": "module",
     "main": "dist/widget.min.js",
