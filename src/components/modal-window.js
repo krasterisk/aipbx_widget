@@ -40,10 +40,12 @@ export class ModalWindow extends EventEmitter {
         });
 
         modal.querySelector('.btn-start').addEventListener('click', () => {
+            console.log('[aiPBX] Modal: Start button clicked');
             this.emit('start');
         });
 
         modal.querySelector('.btn-stop').addEventListener('click', () => {
+            console.log('[aiPBX] Modal: Stop button clicked');
             this.emit('stop');
         });
 
