@@ -22,7 +22,7 @@ const translations = {
         connecting: 'Подключение...',
         listening: 'Слушаю...',
         ai_ready: 'ИИ готов помочь вам',
-        start_conversation: 'Начать разговор',
+        start_conversation: 'Старт',
         stop_call: 'Завершить',
         error_occurred: 'Произошла ошибка. Попробуйте еще раз.',
         microphone_error: 'Доступ к микрофону запрещен или недоступен.',

@@ -8,7 +8,7 @@ import { Translator } from './utils/translations.js';
 
 /**
  * Main AI Voice Widget Class
- * Version: 1.2.5
+ * Version: 1.2.6
  */
 class AIVoiceWidget {
     constructor(publicKey, apiUrl) {
@@ -31,7 +31,7 @@ class AIVoiceWidget {
     async init(options = {}) {
         try {
             if (process.env.NODE_ENV !== 'production') {
-                console.log('%c[aiPBX Widget] Version: 1.2.5', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                console.log('%c[aiPBX Widget] Version: 1.2.6', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                 this.logger.log('Initializing widget with key:', this.publicKey);
             }
 
@@ -100,6 +100,7 @@ class AIVoiceWidget {
         });
 
         this.modal.on('start', () => {
+            this.modal.setStatus('connecting', this.translator.t('connecting') || 'Connecting...');
             this.startSession();
         });
 
@@ -243,7 +244,7 @@ class AIVoiceWidget {
 
     exposePublicAPI() {
         window.AIWidget = {
-            version: '1.2.5',
+            version: '1.2.6',
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),
