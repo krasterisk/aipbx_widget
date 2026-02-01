@@ -51,8 +51,10 @@ export class ModalWindow extends EventEmitter {
         modal.innerHTML = `
             <div class="aipbx-widget-modal-header">
                 <div class="aipbx-widget-header-content">
+                    ${appearance.showBranding !== false ? `
                     <div class="aipbx-widget-header-logo">${logoContent}</div>
                     <h3>${this.config.assistantName || 'aiPBX Voice Assistant'}</h3>
+                    ` : ''}
                 </div>
                 <button class="aipbx-widget-close-btn" aria-label="Close">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -94,7 +96,6 @@ export class ModalWindow extends EventEmitter {
                 <a href="https://aipbx.net" target="_blank" rel="noopener noreferrer">powered by aipbx.net</a>
             </div>
         `;
-
         // Event listeners
         modal.querySelector('.aipbx-widget-close-btn').addEventListener('click', () => {
             this.hide();

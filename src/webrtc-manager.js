@@ -29,7 +29,7 @@ export class WebRTCManager extends EventEmitter {
             // SIP Configuration. 
             // Prefer assistantId or extension from backend config
             const sipDomain = config.sipDomain || 'asterisk-domain.com';
-            const sipServer = config.sipServer || `wss://${sipDomain}:8089/ws`;
+            const sipServer = config.wsUrl || config.sipServer || `wss://${sipDomain}:8089/ws`;
             const extension = config.assistantId || config.extension || '100';
             this.logger.log('Determined extension for call:', extension);
             this.logger.debug('Full configuration received:', config);

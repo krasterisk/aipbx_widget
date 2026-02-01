@@ -15683,7 +15683,7 @@
               // SIP Configuration. 
               // Prefer assistantId or extension from backend config
               const sipDomain = config.sipDomain || 'asterisk-domain.com';
-              const sipServer = config.sipServer || `wss://${sipDomain}:8089/ws`;
+              const sipServer = config.wsUrl || config.sipServer || `wss://${sipDomain}:8089/ws`;
               const extension = config.assistantId || config.extension || '100';
               this.logger.log('Determined extension for call:', extension);
               this.logger.debug('Full configuration received:', config);
@@ -16115,8 +16115,10 @@
           modal.innerHTML = `
             <div class="aipbx-widget-modal-header">
                 <div class="aipbx-widget-header-content">
+                    ${appearance.showBranding !== false ? `
                     <div class="aipbx-widget-header-logo">${logoContent}</div>
                     <h3>${this.config.assistantName || 'aiPBX Voice Assistant'}</h3>
+                    ` : ''}
                 </div>
                 <button class="aipbx-widget-close-btn" aria-label="Close">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -16158,7 +16160,6 @@
                 <a href="https://aipbx.net" target="_blank" rel="noopener noreferrer">powered by aipbx.net</a>
             </div>
         `;
-
           // Event listeners
           modal.querySelector('.aipbx-widget-close-btn').addEventListener('click', () => {
               this.hide();
@@ -16313,7 +16314,7 @@
           connecting: 'Подключение...',
           listening: 'Слушаю...',
           ai_ready: 'ИИ готов помочь вам',
-          start_conversation: 'Начать разговор',
+          start_conversation: 'Старт',
           stop_call: 'Завершить',
           error_occurred: 'Произошла ошибка. Попробуйте еще раз.',
           microphone_error: 'Доступ к микрофону запрещен или недоступен.',
@@ -16375,7 +16376,7 @@
 
   /**
    * Main AI Voice Widget Class
-   * Version: 1.2.6
+   * Version: 1.2.8
    */
   class AIVoiceWidget {
       constructor(publicKey, apiUrl) {
@@ -16398,12 +16399,22 @@
       async init(options = {}) {
           try {
               if ("development" !== 'production') {
-                  console.log('%c[aiPBX Widget] Version: 1.2.6', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                  console.log('%c[aiPBX Widget] Version: 1.2.8', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget with key:', this.publicKey);
               }
 
               // Fetch configuration
               this.config = await this.api.fetchConfig(this.publicKey);
+
+              // Safe parsing for stringified JSON fields (common with some backends)
+              if (typeof this.config.appearance === 'string') {
+                  try {
+                      this.config.appearance = JSON.parse(this.config.appearance);
+                  } catch (e) {
+                      this.logger.error('Failed to parse appearance config', e);
+                      this.config.appearance = {};
+                  }
+              }
 
               if (this.config.logo) {
                   if (this.config.logo.startsWith('http')) {
@@ -16611,7 +16622,7 @@
 
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.2.6',
+              version: '1.2.8',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),

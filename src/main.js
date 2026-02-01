@@ -8,7 +8,7 @@ import { Translator } from './utils/translations.js';
 
 /**
  * Main AI Voice Widget Class
- * Version: 1.2.6
+ * Version: 1.2.8
  */
 class AIVoiceWidget {
     constructor(publicKey, apiUrl) {
@@ -31,12 +31,22 @@ class AIVoiceWidget {
     async init(options = {}) {
         try {
             if (process.env.NODE_ENV !== 'production') {
-                console.log('%c[aiPBX Widget] Version: 1.2.6', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                console.log('%c[aiPBX Widget] Version: 1.2.8', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                 this.logger.log('Initializing widget with key:', this.publicKey);
             }
 
             // Fetch configuration
             this.config = await this.api.fetchConfig(this.publicKey);
+
+            // Safe parsing for stringified JSON fields (common with some backends)
+            if (typeof this.config.appearance === 'string') {
+                try {
+                    this.config.appearance = JSON.parse(this.config.appearance);
+                } catch (e) {
+                    this.logger.error('Failed to parse appearance config', e);
+                    this.config.appearance = {};
+                }
+            }
 
             if (this.config.logo) {
                 if (this.config.logo.startsWith('http')) {
@@ -244,7 +254,7 @@ class AIVoiceWidget {
 
     exposePublicAPI() {
         window.AIWidget = {
-            version: '1.2.6',
+            version: '1.2.8',
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),
