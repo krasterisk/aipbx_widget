@@ -1,43 +1,47 @@
 import { EventEmitter } from '../utils/events.js';
 
 /**
- * Floating Button Component
+ * Floating action button to trigger the widget
  */
 export class FloatingButton extends EventEmitter {
     constructor() {
         super();
-        this.button = this.create();
+        this.button = this.createButton();
+        this.render();
     }
 
-    create() {
-        const btn = document.createElement('button');
-        btn.className = 'ai-widget-btn';
-        btn.setAttribute('aria-label', 'Open aiPBX widget');
+    createButton() {
+        const btn = document.createElement('div');
+        btn.id = 'aipbx-floating-button';
         btn.innerHTML = `
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
-        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-      </svg>
-    `;
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+        `;
 
-        btn.addEventListener('click', () => this.emit('click'));
+        btn.addEventListener('click', () => {
+            this.emit('click');
+        });
 
         return btn;
     }
 
-    show() {
-        if (!document.body.contains(this.button)) {
-            document.body.appendChild(this.button);
-        }
+    render() {
+        document.body.appendChild(this.button);
     }
 
     hide() {
-        if (document.body.contains(this.button)) {
-            this.button.remove();
-        }
+        this.button.classList.add('hidden');
+    }
+
+    show() {
+        this.button.classList.remove('hidden');
     }
 
     destroy() {
-        this.hide();
+        this.button.remove();
     }
 }

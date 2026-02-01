@@ -29,13 +29,17 @@ class AIVoiceWidget {
 
     async init() {
         try {
-            console.log('%c[aiPBX Widget] Version: 1.1.2', 'color: #667eea; font-weight: bold; font-size: 12px;');
-            this.logger.log('Initializing widget with key:', this.publicKey);
+            if (process.env.NODE_ENV !== 'production') {
+                console.log('%c[aiPBX Widget] Version: 1.1.5', 'color: #667eea; font-weight: bold; font-size: 12px;');
+                this.logger.log('Initializing widget with key:', this.publicKey);
+            }
 
             // Fetch configuration
             this.config = await this.api.fetchConfig(this.publicKey);
-            this.logger.log('Configuration loaded:', this.config);
 
+            if (process.env.NODE_ENV !== 'production') {
+                this.logger.log('Configuration loaded:', this.config);
+            }
             // Create UI
             this.modal = new ModalWindow(this.config);
             this.setupEventListeners();
@@ -64,11 +68,13 @@ class AIVoiceWidget {
         this.floatingButton.on('click', () => {
             if (!this.isSessionActive) {
                 this.modal.show();
+                this.floatingButton.hide(); // Скрыть кнопку при открытии модалки
             }
         });
 
         // Modal
         this.modal.on('close', () => {
+            this.floatingButton.show(); // Показать кнопку при закрытии
             // Always try to stop if there was an attempt to start
             this.stopSession();
         });
@@ -192,7 +198,7 @@ class AIVoiceWidget {
 
     exposePublicAPI() {
         window.AIWidget = {
-            version: '1.1.2',
+            version: '1.1.5',
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),

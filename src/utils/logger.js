@@ -4,7 +4,9 @@
 export class Logger {
     constructor(namespace, enabled = true) {
         this.namespace = namespace;
-        this.enabled = enabled;
+        // Disable general logging in production by default
+        this.isProd = process.env.NODE_ENV === 'production';
+        this.enabled = this.isProd ? false : enabled;
     }
 
     log(...args) {
@@ -14,15 +16,13 @@ export class Logger {
     }
 
     error(...args) {
-        if (this.enabled) {
-            console.error(`[${this.namespace}]`, ...args);
-        }
+        // Errors should probably be visible even in production
+        console.error(`[${this.namespace}]`, ...args);
     }
 
     warn(...args) {
-        if (this.enabled) {
-            console.warn(`[${this.namespace}]`, ...args);
-        }
+        // Warnings should probably be visible even in production
+        console.warn(`[${this.namespace}]`, ...args);
     }
 
     debug(...args) {

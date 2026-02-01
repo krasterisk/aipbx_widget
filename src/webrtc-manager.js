@@ -26,16 +26,18 @@ export class WebRTCManager extends EventEmitter {
             this.logger.log('Starting SIP session...');
 
             // SIP Configuration. 
-            // Prefer settings from backend config, fallback to defaults or inferred values
+            // Prefer assistantId or extension from backend config
             const sipDomain = config.sipDomain || 'asterisk-domain.com';
             const sipServer = config.sipServer || `wss://${sipDomain}:8089/ws`;
-            const extension = config.extension || '100';
+            const extension = config.assistantId || config.extension || '100';
+            this.logger.log('Determined extension for call:', extension);
+            this.logger.debug('Full configuration received:', config);
 
             this.logger.debug('SIP Config:', { sipDomain, sipServer, extension });
 
             // 1. Initialize UserAgent
             this.userAgent = new UserAgent({
-                uri: UserAgent.makeURI(`sip:anonymous@${sipDomain}`),
+                uri: UserAgent.makeURI(`sip:aipbxwidget@${sipDomain}`),
                 transportOptions: {
                     server: sipServer
                 },
@@ -182,9 +184,9 @@ export class WebRTCManager extends EventEmitter {
         try {
             const tasks = [];
             if (session) {
-                this.logger.debug('Terminating SIP session');
-                // Using .terminate() as it's more definitive (handles BYE/CANCEL)
-                tasks.push(session.terminate().catch(e => this.logger.error('Session terminate failed:', e)));
+                this.logger.debug('Disposing SIP session (BYE/CANCEL)');
+                // In SIP.js 0.21+, .dispose() is the standard way to terminate
+                tasks.push(Promise.resolve(session.dispose()));
             }
             if (ua) {
                 this.logger.debug('Stopping SIP UserAgent');

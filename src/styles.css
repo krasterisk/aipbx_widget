@@ -1,4 +1,5 @@
 /* AI Voice Widget Styles */
+.hidden { display: none !important; }
 
 /* Floating Button */
 .ai-widget-btn {
