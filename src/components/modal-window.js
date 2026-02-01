@@ -5,19 +5,27 @@ import { AudioVisualizer } from './audio-visualizer.js';
  * Modern Modal Window Component
  */
 export class ModalWindow extends EventEmitter {
-    constructor(config) {
+    constructor(config, translator) {
         super();
         this.config = config;
+        this.translator = translator;
         this.modal = this.create();
         this.visualizer = null;
     }
 
     create() {
         const modal = document.createElement('div');
-        modal.className = 'ai-widget-modal';
+        const appearance = this.config.appearance || {};
+        const position = appearance.buttonPosition || 'bottom-right';
 
-        // Use simplified logo icon for header
-        const logoIcon = `
+        modal.className = `ai-widget-modal ${position}`;
+
+        let logoContent;
+        if (this.config.logoUrl) {
+            logoContent = `<img src="${this.config.logoUrl}" alt="${this.config.assistantName || 'Assistant'}" />`;
+        } else {
+            // Use simplified logo icon for header
+            logoContent = `
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="45" fill="url(#headerGrad)" fill-opacity="0.2"/>
                 <g>
@@ -38,11 +46,12 @@ export class ModalWindow extends EventEmitter {
                 </defs>
             </svg>
         `;
+        }
 
         modal.innerHTML = `
             <div class="modal-header">
                 <div class="header-content">
-                    <div class="header-logo">${logoIcon}</div>
+                    <div class="header-logo">${logoContent}</div>
                     <h3>${this.config.assistantName || 'aiPBX Voice Assistant'}</h3>
                 </div>
                 <button class="close-btn" aria-label="Close">
@@ -58,27 +67,27 @@ export class ModalWindow extends EventEmitter {
                 
                 <div class="status-container" id="widget-status-area">
                     <div class="status-ready" id="status-ready">
-                        <p class="status-text">Ready to talk</p>
-                        <p class="status-subtext">Click start to begin conversation</p>
+                        <p class="status-text">${this.translator.t('ready_to_talk')}</p>
+                        <p class="status-subtext">${this.translator.t('click_to_begin')}</p>
                     </div>
                     
                     <div class="connecting-loader hidden" id="status-connecting">
                         <div class="loader-ring"></div>
-                        <div class="loader-icon">${logoIcon}</div>
+                        <div class="loader-icon">${logoContent}</div>
                     </div>
                     
                     <div class="status-active hidden" id="status-active">
-                        <p class="status-text">Listening...</p>
-                        <p class="status-subtext">AI is ready to help you</p>
+                        <p class="status-text">${this.translator.t('listening')}</p>
+                        <p class="status-subtext">${this.translator.t('ai_ready')}</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-start">
-                    <span>Start Conversation</span>
+                    <span>${this.translator.t('start_conversation')}</span>
                 </button>
                 <button class="btn btn-danger btn-stop hidden" disabled>
-                    <span>Stop Call</span>
+                    <span>${this.translator.t('stop_call')}</span>
                 </button>
             </div>
         `;
@@ -116,13 +125,33 @@ export class ModalWindow extends EventEmitter {
         }, 500);
     }
 
+    updateTranslator(translator) {
+        this.translator = translator;
+        this.refreshText();
+    }
+
+    refreshText() {
+        const readyText = this.modal.querySelector('#status-ready .status-text');
+        const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
+        const listeningText = this.modal.querySelector('#status-active .status-text');
+        const listeningSubtext = this.modal.querySelector('#status-active .status-subtext');
+        const startBtnText = this.modal.querySelector('.btn-start span');
+        const stopBtnText = this.modal.querySelector('.btn-danger span');
+
+        if (readyText) readyText.textContent = this.translator.t('ready_to_talk');
+        if (readySubtext) readySubtext.textContent = this.translator.t('click_to_begin');
+        if (listeningText) listeningText.textContent = this.translator.t('listening');
+        if (listeningSubtext) listeningSubtext.textContent = this.translator.t('ai_ready');
+        if (startBtnText) startBtnText.textContent = this.translator.t('start_conversation');
+        if (stopBtnText) stopBtnText.textContent = this.translator.t('stop_call');
+    }
+
     setStatus(state, message) {
         const readyArea = this.modal.querySelector('#status-ready');
         const connectingArea = this.modal.querySelector('#status-connecting');
         const activeArea = this.modal.querySelector('#status-active');
         const startBtn = this.modal.querySelector('.btn-start');
         const stopBtn = this.modal.querySelector('.btn-stop');
-        const statusText = this.modal.querySelector('.status-text');
 
         // Hide all areas first
         [readyArea, connectingArea, activeArea].forEach(el => el?.classList.add('hidden'));
@@ -144,8 +173,11 @@ export class ModalWindow extends EventEmitter {
 
             case 'error':
                 readyArea?.classList.remove('hidden');
-                this.modal.querySelector('.status-subtext').textContent = message || 'An error occurred. Please try again.';
-                this.modal.querySelector('.status-subtext').style.color = '#ef4444';
+                const subtext = this.modal.querySelector('#status-ready .status-subtext');
+                if (subtext) {
+                    subtext.textContent = message || this.translator.t('error_occurred');
+                    subtext.style.color = '#ef4444';
+                }
                 startBtn.classList.remove('hidden');
                 stopBtn.classList.add('hidden');
                 startBtn.disabled = false;
@@ -154,8 +186,11 @@ export class ModalWindow extends EventEmitter {
             case 'ready':
             default:
                 readyArea?.classList.remove('hidden');
-                this.modal.querySelector('.status-subtext').textContent = 'Click start to begin conversation';
-                this.modal.querySelector('.status-subtext').style.color = '';
+                const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
+                if (readySubtext) {
+                    readySubtext.textContent = this.translator.t('click_to_begin');
+                    readySubtext.style.color = '';
+                }
                 startBtn.classList.remove('hidden');
                 stopBtn.classList.add('hidden');
                 startBtn.disabled = false;

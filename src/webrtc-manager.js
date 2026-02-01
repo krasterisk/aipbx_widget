@@ -13,6 +13,7 @@ export class WebRTCManager extends EventEmitter {
         this.session = null;
         this.localStream = null;
         this.remoteAudio = new Audio();
+        this.sessionTimer = null;
         this.logger = new Logger('SIP');
     }
 
@@ -86,6 +87,15 @@ export class WebRTCManager extends EventEmitter {
                         this.logger.log('SIP Call established');
                         this.setupAudio();
                         this.emit('connected');
+
+                        // Start session duration timer if specified
+                        if (config.maxSessionDuration && config.maxSessionDuration > 0) {
+                            this.logger.log(`Session duration limit set to ${config.maxSessionDuration}s`);
+                            this.sessionTimer = setTimeout(() => {
+                                this.logger.warn('Session duration limit reached, terminating...');
+                                this.stopSession();
+                            }, config.maxSessionDuration * 1000);
+                        }
                         break;
                     case SessionState.Terminated:
                         this.logger.log('SIP Call terminated');
@@ -219,6 +229,11 @@ export class WebRTCManager extends EventEmitter {
             this.logger.log('Stopping local audio tracks');
             this.localStream.getTracks().forEach(track => track.stop());
             this.localStream = null;
+        }
+
+        if (this.sessionTimer) {
+            clearTimeout(this.sessionTimer);
+            this.sessionTimer = null;
         }
 
         this.session = null;

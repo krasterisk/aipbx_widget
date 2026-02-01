@@ -13,26 +13,28 @@ export class FloatingButton extends EventEmitter {
     createButton() {
         const btn = document.createElement('div');
         btn.id = 'aipbx-floating-button';
-        btn.className = 'ai-widget-btn'; // Use modern class
+        btn.className = 'ai-widget-btn bottom-right'; // Default position
 
-        // Simplified icon from aipbx_logo
+        // Combined icon: Handset + aiPBX nodes
         btn.innerHTML = `
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="45" fill="white" fill-opacity="0.15"/>
-                <g filter="url(#glow)">
-                    <circle cx="50" cy="30" r="5" fill="white"/>
-                    <circle cx="75" cy="45" r="5" fill="white"/>
-                    <circle cx="50" cy="70" r="5" fill="white"/>
-                    <circle cx="25" cy="45" r="5" fill="white"/>
-                    <line x1="50" y1="30" x2="75" y2="45" stroke="white" stroke-width="3"/>
-                    <line x1="75" y1="45" x2="50" y2="70" stroke="white" stroke-width="3"/>
-                    <line x1="50" y1="70" x2="25" y2="45" stroke="white" stroke-width="3"/>
-                    <line x1="25" y1="45" x2="50" y2="30" stroke="white" stroke-width="3"/>
-                    <circle cx="50" cy="50" r="8" fill="white"/>
+                
+                <!-- Handset Icon -->
+                <path d="M34 26C31.8 26 30 27.8 30 30V34.5C30 52.4 44.6 67 62.5 67H67C69.2 67 71 65.2 71 63V58.5C71 56.3 69.2 54.5 67 54.5L58 54.5C55.8 54.5 54 56.3 54 58.5V60.5C45.5 58.5 38.5 51.5 36.5 43H38.5C40.7 43 42.5 41.2 42.5 39V30C42.5 27.8 40.7 26 38.5 26H34Z" 
+                      fill="white" filter="url(#glow)"/>
+                
+                <!-- aiPBX styled nodes around -->
+                <g opacity="0.8">
+                    <circle cx="20" cy="30" r="4" fill="white"/>
+                    <circle cx="80" cy="70" r="4" fill="white"/>
+                    <circle cx="80" cy="30" r="3" fill="white" opacity="0.6"/>
+                    <circle cx="20" cy="70" r="3" fill="white" opacity="0.6"/>
                 </g>
+
                 <defs>
                     <filter id="glow" x="0" y="0" width="100" height="100">
-                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feGaussianBlur stdDeviation="2.5" result="blur"/>
                         <feComposite in="SourceGraphic" in2="blur" operator="over"/>
                     </filter>
                 </defs>
@@ -48,6 +50,13 @@ export class FloatingButton extends EventEmitter {
 
     render() {
         document.body.appendChild(this.button);
+    }
+
+    setPosition(position) {
+        // Remove existing position classes
+        this.button.classList.remove('bottom-right', 'bottom-left', 'top-right', 'top-left');
+        // Add new position class
+        this.button.classList.add(position);
     }
 
     hide() {

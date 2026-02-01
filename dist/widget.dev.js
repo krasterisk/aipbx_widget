@@ -28,7 +28,7 @@
     }
   }
 
-  var css_248z = "/* AI Voice Widget Modern Theme */\r\n:root {\r\n    --primary-gradient: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 50%, #8B5CF6 100%);\r\n    --bg-glass: rgba(255, 255, 255, 0.85);\r\n    --border-glass: rgba(255, 255, 255, 0.3);\r\n    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.15);\r\n    --text-main: #1e293b;\r\n    --text-muted: #64748b;\r\n}\r\n\r\n.hidden {\r\n    display: none !important;\r\n}\r\n\r\n/* Floating Button */\r\n.ai-widget-btn {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    width: 65px;\r\n    height: 65px;\r\n    border-radius: 22px;\r\n    background: var(--primary-gradient);\r\n    border: none;\r\n    cursor: pointer;\r\n    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);\r\n    z-index: 9999;\r\n    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding: 12px;\r\n}\r\n\r\n.ai-widget-btn:hover {\r\n    transform: scale(1.1) rotate(5deg);\r\n    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.6);\r\n}\r\n\r\n.ai-widget-btn svg {\r\n    width: 100%;\r\n    height: 100%;\r\n    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));\r\n}\r\n\r\n/* Modal Window */\r\n.ai-widget-modal {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    width: 380px;\r\n    background: var(--bg-glass);\r\n    backdrop-filter: blur(20px);\r\n    -webkit-backdrop-filter: blur(20px);\r\n    border-radius: 30px;\r\n    border: 1px solid var(--border-glass);\r\n    box-shadow: var(--shadow-premium);\r\n    z-index: 9998;\r\n    display: flex;\r\n    flex-direction: column;\r\n    opacity: 0;\r\n    transform: scale(0.9) translateY(40px);\r\n    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);\r\n    pointer-events: none;\r\n    overflow: hidden;\r\n    font-family: 'Outfit', 'Inter', -apple-system, sans-serif;\r\n}\r\n\r\n.ai-widget-modal.visible {\r\n    opacity: 1;\r\n    transform: scale(1) translateY(0);\r\n    pointer-events: all;\r\n}\r\n\r\n/* Header */\r\n.modal-header {\r\n    padding: 24px 28px;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    background: rgba(255, 255, 255, 0.4);\r\n}\r\n\r\n.header-content {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n}\r\n\r\n.header-logo {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.modal-header h3 {\r\n    margin: 0;\r\n    font-size: 18px;\r\n    font-weight: 700;\r\n    color: var(--text-main);\r\n}\r\n\r\n.close-btn {\r\n    background: rgba(0, 0, 0, 0.05);\r\n    border: none;\r\n    color: var(--text-muted);\r\n    width: 34px;\r\n    height: 34px;\r\n    border-radius: 50%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    cursor: pointer;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.close-btn:hover {\r\n    background: rgba(0, 0, 0, 0.1);\r\n    color: var(--text-main);\r\n    transform: rotate(90deg);\r\n}\r\n\r\n/* Body */\r\n.modal-body {\r\n    padding: 30px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 24px;\r\n    min-height: 280px;\r\n}\r\n\r\n/* Visualizer Container */\r\n.visualizer-wrapper {\r\n    width: 100%;\r\n    position: relative;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n#ai-widget-visualizer {\r\n    width: 100%;\r\n    height: 140px;\r\n    border-radius: 20px;\r\n    background: rgba(14, 165, 233, 0.03);\r\n}\r\n\r\n/* Status */\r\n.status-container {\r\n    text-align: center;\r\n    animation: fadeIn 0.4s ease-out;\r\n}\r\n\r\n.status-text {\r\n    font-size: 16px;\r\n    color: var(--text-main);\r\n    font-weight: 600;\r\n    margin: 0;\r\n}\r\n\r\n.status-subtext {\r\n    font-size: 13px;\r\n    color: var(--text-muted);\r\n    margin-top: 4px;\r\n}\r\n\r\n/* Connecting Loader */\r\n.connecting-loader {\r\n    width: 60px;\r\n    height: 60px;\r\n    position: relative;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.loader-ring {\r\n    width: 100%;\r\n    height: 100%;\r\n    border: 4px solid rgba(14, 165, 233, 0.1);\r\n    border-top: 4px solid #0EA5E9;\r\n    border-radius: 50%;\r\n    animation: spin 1s linear infinite;\r\n}\r\n\r\n.loader-icon {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 24px;\r\n    height: 24px;\r\n}\r\n\r\n/* Footer & Buttons */\r\n.modal-footer {\r\n    padding: 24px 30px 30px;\r\n    display: flex;\r\n    gap: 15px;\r\n}\r\n\r\n.btn {\r\n    padding: 14px 28px;\r\n    border: none;\r\n    border-radius: 18px;\r\n    cursor: pointer;\r\n    font-weight: 700;\r\n    font-size: 15px;\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 8px;\r\n}\r\n\r\n.btn-primary {\r\n    background: var(--primary-gradient);\r\n    color: white;\r\n    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);\r\n}\r\n\r\n.btn-primary:hover:not(:disabled) {\r\n    transform: translateY(-2px);\r\n    box-shadow: 0 12px 25px rgba(14, 165, 233, 0.4);\r\n}\r\n\r\n.btn-danger {\r\n    background: #fff;\r\n    color: #ef4444;\r\n    border: 2px solid #fee2e2;\r\n}\r\n\r\n.btn-danger:hover:not(:disabled) {\r\n    background: #fee2e2;\r\n}\r\n\r\n.btn:disabled {\r\n    opacity: 0.5;\r\n    cursor: not-allowed;\r\n    filter: grayscale(1);\r\n}\r\n\r\n/* Base Animations */\r\n@keyframes spin {\r\n    to {\r\n        transform: rotate(360deg);\r\n    }\r\n}\r\n\r\n@keyframes fadeIn {\r\n    from {\r\n        opacity: 0;\r\n        transform: translateY(10px);\r\n    }\r\n\r\n    to {\r\n        opacity: 1;\r\n        transform: translateY(0);\r\n    }\r\n}\r\n\r\n/* Mobile */\r\n@media (max-width: 480px) {\r\n    .ai-widget-modal {\r\n        bottom: 0;\r\n        right: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        border-radius: 0;\r\n    }\r\n}";
+  var css_248z = "/* AI Voice Widget Modern Theme */\r\n:root {\r\n    --primary-color: #0EA5E9;\r\n    --button-color: #0EA5E9;\r\n    --primary-gradient: linear-gradient(135deg, #06B6D4 0%, var(--primary-color) 50%, #8B5CF6 100%);\r\n    --bg-glass: rgba(255, 255, 255, 0.85);\r\n    --border-glass: rgba(255, 255, 255, 0.3);\r\n    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.15);\r\n    --text-main: #1e293b;\r\n    --text-muted: #64748b;\r\n}\r\n\r\n.hidden {\r\n    display: none !important;\r\n}\r\n\r\n/* Floating Button */\r\n.ai-widget-btn {\r\n    position: fixed;\r\n    width: 65px;\r\n    height: 65px;\r\n    border-radius: 22px;\r\n    background: var(--button-color);\r\n    /* Fallback if background not supporting gradient variables */\r\n    background: linear-gradient(135deg, #06B6D4 0%, var(--button-color) 50%, #8B5CF6 100%);\r\n    border: none;\r\n    cursor: pointer;\r\n    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);\r\n    z-index: 9999;\r\n    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding: 12px;\r\n}\r\n\r\n/* Positioning Classes */\r\n.ai-widget-btn.bottom-right {\r\n    bottom: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.ai-widget-btn.bottom-left {\r\n    bottom: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.ai-widget-btn.top-right {\r\n    top: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.ai-widget-btn.top-left {\r\n    top: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.ai-widget-btn:hover {\r\n    transform: scale(1.1) rotate(5deg);\r\n    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.6);\r\n}\r\n\r\n.ai-widget-btn svg {\r\n    width: 100%;\r\n    height: 100%;\r\n    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));\r\n}\r\n\r\n/* Modal Window */\r\n.ai-widget-modal {\r\n    position: fixed;\r\n    width: 380px;\r\n    background: var(--bg-glass);\r\n    backdrop-filter: blur(20px);\r\n    -webkit-backdrop-filter: blur(20px);\r\n    border-radius: 30px;\r\n    border: 1px solid var(--border-glass);\r\n    box-shadow: var(--shadow-premium);\r\n    z-index: 9998;\r\n    display: flex;\r\n    flex-direction: column;\r\n    opacity: 0;\r\n    transform: scale(0.9) translateY(40px);\r\n    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);\r\n    pointer-events: none;\r\n    overflow: hidden;\r\n    font-family: 'Outfit', 'Inter', -apple-system, sans-serif;\r\n}\r\n\r\n/* Modal Positioning */\r\n.ai-widget-modal.bottom-right {\r\n    bottom: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.ai-widget-modal.bottom-left {\r\n    bottom: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.ai-widget-modal.top-right {\r\n    top: 30px;\r\n    right: 30px;\r\n    transform: scale(0.9) translateY(-40px);\r\n}\r\n\r\n.ai-widget-modal.top-left {\r\n    top: 30px;\r\n    left: 30px;\r\n    transform: scale(0.9) translateY(-40px);\r\n}\r\n\r\n.ai-widget-modal.visible {\r\n    opacity: 1;\r\n    transform: scale(1) translateY(0);\r\n    pointer-events: all;\r\n}\r\n\r\n/* Header */\r\n.modal-header {\r\n    padding: 24px 28px;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    background: rgba(255, 255, 255, 0.4);\r\n}\r\n\r\n.header-content {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n}\r\n\r\n.header-logo {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.modal-header h3 {\r\n    margin: 0;\r\n    font-size: 18px;\r\n    font-weight: 700;\r\n    color: var(--text-main);\r\n}\r\n\r\n.close-btn {\r\n    background: rgba(0, 0, 0, 0.05);\r\n    border: none;\r\n    color: var(--text-muted);\r\n    width: 34px;\r\n    height: 34px;\r\n    border-radius: 50%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    cursor: pointer;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.close-btn:hover {\r\n    background: rgba(0, 0, 0, 0.1);\r\n    color: var(--text-main);\r\n    transform: rotate(90deg);\r\n}\r\n\r\n/* Body */\r\n.modal-body {\r\n    padding: 30px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 24px;\r\n    min-height: 280px;\r\n}\r\n\r\n/* Visualizer Container */\r\n.visualizer-wrapper {\r\n    width: 100%;\r\n    position: relative;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n#ai-widget-visualizer {\r\n    width: 100%;\r\n    height: 140px;\r\n    border-radius: 20px;\r\n    background: rgba(14, 165, 233, 0.03);\r\n}\r\n\r\n/* Status */\r\n.status-container {\r\n    text-align: center;\r\n    animation: fadeIn 0.4s ease-out;\r\n}\r\n\r\n.status-text {\r\n    font-size: 16px;\r\n    color: var(--text-main);\r\n    font-weight: 600;\r\n    margin: 0;\r\n}\r\n\r\n.status-subtext {\r\n    font-size: 13px;\r\n    color: var(--text-muted);\r\n    margin-top: 4px;\r\n}\r\n\r\n/* Connecting Loader */\r\n.connecting-loader {\r\n    width: 60px;\r\n    height: 60px;\r\n    position: relative;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.loader-ring {\r\n    width: 100%;\r\n    height: 100%;\r\n    border: 4px solid rgba(14, 165, 233, 0.1);\r\n    border-top: 4px solid var(--primary-color);\r\n    border-radius: 50%;\r\n    animation: spin 1s linear infinite;\r\n}\r\n\r\n.loader-icon {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 24px;\r\n    height: 24px;\r\n}\r\n\r\n.ai-widget-btn img,\r\n.header-logo img,\r\n.loader-icon img {\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n    border-radius: 50%;\r\n}\r\n\r\n/* Footer & Buttons */\r\n.modal-footer {\r\n    padding: 24px 30px 30px;\r\n    display: flex;\r\n    gap: 15px;\r\n}\r\n\r\n.btn {\r\n    padding: 14px 28px;\r\n    border: none;\r\n    border-radius: 18px;\r\n    cursor: pointer;\r\n    font-weight: 700;\r\n    font-size: 15px;\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 8px;\r\n}\r\n\r\n.btn-primary {\r\n    background: var(--primary-gradient);\r\n    color: white;\r\n    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);\r\n}\r\n\r\n.btn-primary:hover:not(:disabled) {\r\n    transform: translateY(-2px);\r\n    box-shadow: 0 12px 25px rgba(14, 165, 233, 0.4);\r\n}\r\n\r\n.btn-danger {\r\n    background: white;\r\n    color: #ef4444;\r\n    border: 2px solid #fee2e2;\r\n}\r\n\r\n.btn-danger:hover:not(:disabled) {\r\n    background: #fee2e2;\r\n}\r\n\r\n.btn:disabled {\r\n    opacity: 0.5;\r\n    cursor: not-allowed;\r\n    filter: grayscale(1);\r\n}\r\n\r\n/* Base Animations */\r\n@keyframes spin {\r\n    to {\r\n        transform: rotate(360deg);\r\n    }\r\n}\r\n\r\n@keyframes fadeIn {\r\n    from {\r\n        opacity: 0;\r\n        transform: translateY(10px);\r\n    }\r\n\r\n    to {\r\n        opacity: 1;\r\n        transform: translateY(0);\r\n    }\r\n}\r\n\r\n/* Mobile */\r\n@media (max-width: 480px) {\r\n    .ai-widget-modal {\r\n        bottom: 0 !important;\r\n        right: 0 !important;\r\n        left: 0 !important;\r\n        top: 0 !important;\r\n        width: 100% !important;\r\n        height: 100% !important;\r\n        border-radius: 0;\r\n    }\r\n}";
   styleInject(css_248z);
 
   /**
@@ -15667,6 +15667,7 @@
           this.session = null;
           this.localStream = null;
           this.remoteAudio = new Audio();
+          this.sessionTimer = null;
           this.logger = new Logger$1('SIP');
       }
 
@@ -15740,6 +15741,15 @@
                           this.logger.log('SIP Call established');
                           this.setupAudio();
                           this.emit('connected');
+
+                          // Start session duration timer if specified
+                          if (config.maxSessionDuration && config.maxSessionDuration > 0) {
+                              this.logger.log(`Session duration limit set to ${config.maxSessionDuration}s`);
+                              this.sessionTimer = setTimeout(() => {
+                                  this.logger.warn('Session duration limit reached, terminating...');
+                                  this.stopSession();
+                              }, config.maxSessionDuration * 1000);
+                          }
                           break;
                       case SessionState.Terminated:
                           this.logger.log('SIP Call terminated');
@@ -15875,6 +15885,11 @@
               this.localStream = null;
           }
 
+          if (this.sessionTimer) {
+              clearTimeout(this.sessionTimer);
+              this.sessionTimer = null;
+          }
+
           this.session = null;
           this.userAgent = null;
       }
@@ -15893,26 +15908,28 @@
       createButton() {
           const btn = document.createElement('div');
           btn.id = 'aipbx-floating-button';
-          btn.className = 'ai-widget-btn'; // Use modern class
+          btn.className = 'ai-widget-btn bottom-right'; // Default position
 
-          // Simplified icon from aipbx_logo
+          // Combined icon: Handset + aiPBX nodes
           btn.innerHTML = `
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="45" fill="white" fill-opacity="0.15"/>
-                <g filter="url(#glow)">
-                    <circle cx="50" cy="30" r="5" fill="white"/>
-                    <circle cx="75" cy="45" r="5" fill="white"/>
-                    <circle cx="50" cy="70" r="5" fill="white"/>
-                    <circle cx="25" cy="45" r="5" fill="white"/>
-                    <line x1="50" y1="30" x2="75" y2="45" stroke="white" stroke-width="3"/>
-                    <line x1="75" y1="45" x2="50" y2="70" stroke="white" stroke-width="3"/>
-                    <line x1="50" y1="70" x2="25" y2="45" stroke="white" stroke-width="3"/>
-                    <line x1="25" y1="45" x2="50" y2="30" stroke="white" stroke-width="3"/>
-                    <circle cx="50" cy="50" r="8" fill="white"/>
+                
+                <!-- Handset Icon -->
+                <path d="M34 26C31.8 26 30 27.8 30 30V34.5C30 52.4 44.6 67 62.5 67H67C69.2 67 71 65.2 71 63V58.5C71 56.3 69.2 54.5 67 54.5L58 54.5C55.8 54.5 54 56.3 54 58.5V60.5C45.5 58.5 38.5 51.5 36.5 43H38.5C40.7 43 42.5 41.2 42.5 39V30C42.5 27.8 40.7 26 38.5 26H34Z" 
+                      fill="white" filter="url(#glow)"/>
+                
+                <!-- aiPBX styled nodes around -->
+                <g opacity="0.8">
+                    <circle cx="20" cy="30" r="4" fill="white"/>
+                    <circle cx="80" cy="70" r="4" fill="white"/>
+                    <circle cx="80" cy="30" r="3" fill="white" opacity="0.6"/>
+                    <circle cx="20" cy="70" r="3" fill="white" opacity="0.6"/>
                 </g>
+
                 <defs>
                     <filter id="glow" x="0" y="0" width="100" height="100">
-                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feGaussianBlur stdDeviation="2.5" result="blur"/>
                         <feComposite in="SourceGraphic" in2="blur" operator="over"/>
                     </filter>
                 </defs>
@@ -15928,6 +15945,13 @@
 
       render() {
           document.body.appendChild(this.button);
+      }
+
+      setPosition(position) {
+          // Remove existing position classes
+          this.button.classList.remove('bottom-right', 'bottom-left', 'top-right', 'top-left');
+          // Add new position class
+          this.button.classList.add(position);
       }
 
       hide() {
@@ -16045,19 +16069,27 @@
    * Modern Modal Window Component
    */
   class ModalWindow extends EventEmitter {
-      constructor(config) {
+      constructor(config, translator) {
           super();
           this.config = config;
+          this.translator = translator;
           this.modal = this.create();
           this.visualizer = null;
       }
 
       create() {
           const modal = document.createElement('div');
-          modal.className = 'ai-widget-modal';
+          const appearance = this.config.appearance || {};
+          const position = appearance.buttonPosition || 'bottom-right';
 
-          // Use simplified logo icon for header
-          const logoIcon = `
+          modal.className = `ai-widget-modal ${position}`;
+
+          let logoContent;
+          if (this.config.logoUrl) {
+              logoContent = `<img src="${this.config.logoUrl}" alt="${this.config.assistantName || 'Assistant'}" />`;
+          } else {
+              // Use simplified logo icon for header
+              logoContent = `
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="45" fill="url(#headerGrad)" fill-opacity="0.2"/>
                 <g>
@@ -16078,11 +16110,12 @@
                 </defs>
             </svg>
         `;
+          }
 
           modal.innerHTML = `
             <div class="modal-header">
                 <div class="header-content">
-                    <div class="header-logo">${logoIcon}</div>
+                    <div class="header-logo">${logoContent}</div>
                     <h3>${this.config.assistantName || 'aiPBX Voice Assistant'}</h3>
                 </div>
                 <button class="close-btn" aria-label="Close">
@@ -16098,27 +16131,27 @@
                 
                 <div class="status-container" id="widget-status-area">
                     <div class="status-ready" id="status-ready">
-                        <p class="status-text">Ready to talk</p>
-                        <p class="status-subtext">Click start to begin conversation</p>
+                        <p class="status-text">${this.translator.t('ready_to_talk')}</p>
+                        <p class="status-subtext">${this.translator.t('click_to_begin')}</p>
                     </div>
                     
                     <div class="connecting-loader hidden" id="status-connecting">
                         <div class="loader-ring"></div>
-                        <div class="loader-icon">${logoIcon}</div>
+                        <div class="loader-icon">${logoContent}</div>
                     </div>
                     
                     <div class="status-active hidden" id="status-active">
-                        <p class="status-text">Listening...</p>
-                        <p class="status-subtext">AI is ready to help you</p>
+                        <p class="status-text">${this.translator.t('listening')}</p>
+                        <p class="status-subtext">${this.translator.t('ai_ready')}</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-start">
-                    <span>Start Conversation</span>
+                    <span>${this.translator.t('start_conversation')}</span>
                 </button>
                 <button class="btn btn-danger btn-stop hidden" disabled>
-                    <span>Stop Call</span>
+                    <span>${this.translator.t('stop_call')}</span>
                 </button>
             </div>
         `;
@@ -16156,13 +16189,33 @@
           }, 500);
       }
 
+      updateTranslator(translator) {
+          this.translator = translator;
+          this.refreshText();
+      }
+
+      refreshText() {
+          const readyText = this.modal.querySelector('#status-ready .status-text');
+          const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
+          const listeningText = this.modal.querySelector('#status-active .status-text');
+          const listeningSubtext = this.modal.querySelector('#status-active .status-subtext');
+          const startBtnText = this.modal.querySelector('.btn-start span');
+          const stopBtnText = this.modal.querySelector('.btn-danger span');
+
+          if (readyText) readyText.textContent = this.translator.t('ready_to_talk');
+          if (readySubtext) readySubtext.textContent = this.translator.t('click_to_begin');
+          if (listeningText) listeningText.textContent = this.translator.t('listening');
+          if (listeningSubtext) listeningSubtext.textContent = this.translator.t('ai_ready');
+          if (startBtnText) startBtnText.textContent = this.translator.t('start_conversation');
+          if (stopBtnText) stopBtnText.textContent = this.translator.t('stop_call');
+      }
+
       setStatus(state, message) {
           const readyArea = this.modal.querySelector('#status-ready');
           const connectingArea = this.modal.querySelector('#status-connecting');
           const activeArea = this.modal.querySelector('#status-active');
           const startBtn = this.modal.querySelector('.btn-start');
           const stopBtn = this.modal.querySelector('.btn-stop');
-          this.modal.querySelector('.status-text');
 
           // Hide all areas first
           [readyArea, connectingArea, activeArea].forEach(el => el?.classList.add('hidden'));
@@ -16184,8 +16237,11 @@
 
               case 'error':
                   readyArea?.classList.remove('hidden');
-                  this.modal.querySelector('.status-subtext').textContent = message || 'An error occurred. Please try again.';
-                  this.modal.querySelector('.status-subtext').style.color = '#ef4444';
+                  const subtext = this.modal.querySelector('#status-ready .status-subtext');
+                  if (subtext) {
+                      subtext.textContent = message || this.translator.t('error_occurred');
+                      subtext.style.color = '#ef4444';
+                  }
                   startBtn.classList.remove('hidden');
                   stopBtn.classList.add('hidden');
                   startBtn.disabled = false;
@@ -16194,8 +16250,11 @@
               case 'ready':
               default:
                   readyArea?.classList.remove('hidden');
-                  this.modal.querySelector('.status-subtext').textContent = 'Click start to begin conversation';
-                  this.modal.querySelector('.status-subtext').style.color = '';
+                  const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
+                  if (readySubtext) {
+                      readySubtext.textContent = this.translator.t('click_to_begin');
+                      readySubtext.style.color = '';
+                  }
                   startBtn.classList.remove('hidden');
                   stopBtn.classList.add('hidden');
                   startBtn.disabled = false;
@@ -16228,8 +16287,92 @@
   }
 
   /**
+   * Simple translation utility for the widget
+   */
+
+  const translations = {
+      en: {
+          ready_to_talk: 'Ready to talk',
+          click_to_begin: 'Click start to begin conversation',
+          connecting: 'Connecting...',
+          listening: 'Listening...',
+          ai_ready: 'AI is ready to help you',
+          start_conversation: 'Start Conversation',
+          stop_call: 'Stop Call',
+          error_occurred: 'An error occurred. Please try again.',
+          microphone_error: 'Microphone access denied or not available.',
+          network_error: 'Network error. Please check your connection.',
+          session_ended: 'Session ended'
+      },
+      ru: {
+          ready_to_talk: 'Готов к общению',
+          click_to_begin: 'Нажмите «Старт», чтобы начать разговор',
+          connecting: 'Подключение...',
+          listening: 'Слушаю...',
+          ai_ready: 'ИИ готов помочь вам',
+          start_conversation: 'Начать разговор',
+          stop_call: 'Завершить',
+          error_occurred: 'Произошла ошибка. Попробуйте еще раз.',
+          microphone_error: 'Доступ к микрофону запрещен или недоступен.',
+          network_error: 'Ошибка сети. Проверьте соединение.',
+          session_ended: 'Разговор завершен'
+      },
+      de: {
+          ready_to_talk: 'Bereit zum Sprechen',
+          click_to_begin: 'Klicken Sie auf Start, um das Gespräch zu beginnen',
+          connecting: 'Verbindung wird hergestellt...',
+          listening: 'Hören...',
+          ai_ready: 'KI ist bereit, Ihnen zu helfen',
+          start_conversation: 'Gespräch beginnen',
+          stop_call: 'Beenden',
+          error_occurred: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+          microphone_error: 'Mikrofonzugriff verweigert oder nicht verfügbar.',
+          network_error: 'Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung.',
+          session_ended: 'Sitzung beendet'
+      },
+      zh: {
+          ready_to_talk: '准备通话',
+          click_to_begin: '点击开始进行对话',
+          connecting: '连接中...',
+          listening: '在听...',
+          ai_ready: 'AI 已准备好为您提供帮助',
+          start_conversation: '开始对话',
+          stop_call: '结束通话',
+          error_occurred: '发生错误。请再试一次。',
+          microphone_error: '麦克风访问被拒绝或不可用。',
+          network_error: '网络错误。请检查您的连接。',
+          session_ended: '通话结束'
+      }
+  };
+
+  class Translator {
+      constructor(lang) {
+          this.lang = this.determineLanguage(lang);
+      }
+
+      determineLanguage(lang) {
+          if (lang && translations[lang.toLowerCase()]) {
+              return lang.toLowerCase();
+          }
+
+          // Auto-detect browser language
+          const browserLang = navigator.language.split('-')[0].toLowerCase();
+          return translations[browserLang] ? browserLang : 'en';
+      }
+
+      t(key) {
+          const langData = translations[this.lang] || translations['en'];
+          return langData[key] || key;
+      }
+
+      getLang() {
+          return this.lang;
+      }
+  }
+
+  /**
    * Main AI Voice Widget Class
-   * Version: 1.0.x
+   * Version: 1.2.0
    */
   class AIVoiceWidget {
       constructor(publicKey, apiUrl) {
@@ -16243,27 +16386,42 @@
           this.webrtc = new WebRTCManager(this.api);
           this.floatingButton = new FloatingButton();
           this.modal = null;
-
+          this.translator = null;
           // State
           this.isSessionActive = false;
           this.isStopping = false;
       }
 
-      async init() {
+      async init(options = {}) {
           try {
               if ("development" !== 'production') {
-                  console.log('%c[aiPBX Widget] Version: 1.1.6', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                  console.log('%c[aiPBX Widget] Version: 1.2.0', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget with key:', this.publicKey);
               }
 
               // Fetch configuration
               this.config = await this.api.fetchConfig(this.publicKey);
 
+              if (this.config.logo) {
+                  if (this.config.logo.startsWith('http')) {
+                      this.config.logoUrl = this.config.logo;
+                  } else {
+                      const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+                      const logoPath = this.config.logo.startsWith('/') ? this.config.logo : `/${this.config.logo}`;
+                      this.config.logoUrl = `${baseUrl}${logoPath}`;
+                  }
+              }
+
+              // Initialize translator (prefer options.lang, then config.lang, then auto-detect)
+              this.translator = new Translator(options.lang || this.config.language);
+
               if ("development" !== 'production') {
                   this.logger.log('Configuration loaded:', this.config);
+                  this.logger.log('Language set to:', this.translator.getLang());
               }
               // Create UI
-              this.modal = new ModalWindow(this.config);
+              this.applyStyles();
+              this.modal = new ModalWindow(this.config, this.translator);
               this.setupEventListeners();
 
               // Show floating button
@@ -16418,14 +16576,47 @@
           }, 5000);
       }
 
+      applyStyles() {
+          const appearance = this.config.appearance || {};
+          const root = document.documentElement;
+
+          // Apply colors if provided
+          if (appearance.primaryColor) {
+              root.style.setProperty('--primary-color', appearance.primaryColor);
+          }
+          if (appearance.buttonColor) {
+              root.style.setProperty('--button-color', appearance.buttonColor);
+          }
+
+          // Apply theme colors if dark mode is requested
+          if (appearance.theme === 'dark') {
+              root.style.setProperty('--bg-glass', 'rgba(15, 23, 42, 0.85)');
+              root.style.setProperty('--text-main', '#f8fafc');
+              root.style.setProperty('--text-muted', '#94a3b8');
+              root.style.setProperty('--border-glass', 'rgba(255, 255, 255, 0.1)');
+          }
+
+          // Apply positioning (handled in components via classes)
+          const pos = appearance.buttonPosition || 'bottom-right';
+          this.floatingButton.setPosition(pos);
+      }
+
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.1.6',
+              version: '1.2.0',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),
               stop: () => this.stopSession(),
-              isActive: () => this.isSessionActive
+              isActive: () => this.isSessionActive,
+              setLanguage: (lang) => {
+                  if (this.translator) {
+                      this.translator = new Translator(lang);
+                      if (this.modal) {
+                          this.modal.updateTranslator(this.translator);
+                      }
+                  }
+              }
           };
       }
 

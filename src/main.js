@@ -4,10 +4,11 @@ import { WebRTCManager } from './webrtc-manager.js';
 import { FloatingButton } from './components/floating-button.js';
 import { ModalWindow } from './components/modal-window.js';
 import { Logger } from './utils/logger.js';
+import { Translator } from './utils/translations.js';
 
 /**
  * Main AI Voice Widget Class
- * Version: 1.0.x
+ * Version: 1.2.0
  */
 class AIVoiceWidget {
     constructor(publicKey, apiUrl) {
@@ -21,27 +22,42 @@ class AIVoiceWidget {
         this.webrtc = new WebRTCManager(this.api);
         this.floatingButton = new FloatingButton();
         this.modal = null;
-
+        this.translator = null;
         // State
         this.isSessionActive = false;
         this.isStopping = false;
     }
 
-    async init() {
+    async init(options = {}) {
         try {
             if (process.env.NODE_ENV !== 'production') {
-                console.log('%c[aiPBX Widget] Version: 1.1.6', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                console.log('%c[aiPBX Widget] Version: 1.2.0', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                 this.logger.log('Initializing widget with key:', this.publicKey);
             }
 
             // Fetch configuration
             this.config = await this.api.fetchConfig(this.publicKey);
 
+            if (this.config.logo) {
+                if (this.config.logo.startsWith('http')) {
+                    this.config.logoUrl = this.config.logo;
+                } else {
+                    const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+                    const logoPath = this.config.logo.startsWith('/') ? this.config.logo : `/${this.config.logo}`;
+                    this.config.logoUrl = `${baseUrl}${logoPath}`;
+                }
+            }
+
+            // Initialize translator (prefer options.lang, then config.lang, then auto-detect)
+            this.translator = new Translator(options.lang || this.config.language);
+
             if (process.env.NODE_ENV !== 'production') {
                 this.logger.log('Configuration loaded:', this.config);
+                this.logger.log('Language set to:', this.translator.getLang());
             }
             // Create UI
-            this.modal = new ModalWindow(this.config);
+            this.applyStyles();
+            this.modal = new ModalWindow(this.config, this.translator);
             this.setupEventListeners();
 
             // Show floating button
@@ -196,14 +212,47 @@ class AIVoiceWidget {
         }, 5000);
     }
 
+    applyStyles() {
+        const appearance = this.config.appearance || {};
+        const root = document.documentElement;
+
+        // Apply colors if provided
+        if (appearance.primaryColor) {
+            root.style.setProperty('--primary-color', appearance.primaryColor);
+        }
+        if (appearance.buttonColor) {
+            root.style.setProperty('--button-color', appearance.buttonColor);
+        }
+
+        // Apply theme colors if dark mode is requested
+        if (appearance.theme === 'dark') {
+            root.style.setProperty('--bg-glass', 'rgba(15, 23, 42, 0.85)');
+            root.style.setProperty('--text-main', '#f8fafc');
+            root.style.setProperty('--text-muted', '#94a3b8');
+            root.style.setProperty('--border-glass', 'rgba(255, 255, 255, 0.1)');
+        }
+
+        // Apply positioning (handled in components via classes)
+        const pos = appearance.buttonPosition || 'bottom-right';
+        this.floatingButton.setPosition(pos);
+    }
+
     exposePublicAPI() {
         window.AIWidget = {
-            version: '1.1.6',
+            version: '1.2.0',
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),
             stop: () => this.stopSession(),
-            isActive: () => this.isSessionActive
+            isActive: () => this.isSessionActive,
+            setLanguage: (lang) => {
+                if (this.translator) {
+                    this.translator = new Translator(lang);
+                    if (this.modal) {
+                        this.modal.updateTranslator(this.translator);
+                    }
+                }
+            }
         };
     }
 
