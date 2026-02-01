@@ -28,7 +28,7 @@
     }
   }
 
-  var css_248z = "/* AI Voice Widget Modern Theme */\r\n:root {\r\n    --primary-color: #0EA5E9;\r\n    --button-color: #0EA5E9;\r\n    --primary-gradient: linear-gradient(135deg, #06B6D4 0%, var(--primary-color) 50%, #8B5CF6 100%);\r\n    --bg-glass: rgba(255, 255, 255, 0.85);\r\n    --border-glass: rgba(255, 255, 255, 0.3);\r\n    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.15);\r\n    --text-main: #1e293b;\r\n    --text-muted: #64748b;\r\n}\r\n\r\n.hidden {\r\n    display: none !important;\r\n}\r\n\r\n/* Floating Button */\r\n.ai-widget-btn {\r\n    position: fixed;\r\n    width: 65px;\r\n    height: 65px;\r\n    border-radius: 22px;\r\n    background: var(--button-color);\r\n    /* Fallback if background not supporting gradient variables */\r\n    background: linear-gradient(135deg, #06B6D4 0%, var(--button-color) 50%, #8B5CF6 100%);\r\n    border: none;\r\n    cursor: pointer;\r\n    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);\r\n    z-index: 9999;\r\n    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding: 12px;\r\n}\r\n\r\n/* Positioning Classes */\r\n.ai-widget-btn.bottom-right {\r\n    bottom: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.ai-widget-btn.bottom-left {\r\n    bottom: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.ai-widget-btn.top-right {\r\n    top: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.ai-widget-btn.top-left {\r\n    top: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.ai-widget-btn:hover {\r\n    transform: scale(1.1) rotate(5deg);\r\n    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.6);\r\n}\r\n\r\n.ai-widget-btn svg {\r\n    width: 100%;\r\n    height: 100%;\r\n    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));\r\n}\r\n\r\n/* Modal Window */\r\n.ai-widget-modal {\r\n    position: fixed;\r\n    width: 380px;\r\n    background: var(--bg-glass);\r\n    backdrop-filter: blur(20px);\r\n    -webkit-backdrop-filter: blur(20px);\r\n    border-radius: 30px;\r\n    border: 1px solid var(--border-glass);\r\n    box-shadow: var(--shadow-premium);\r\n    z-index: 9998;\r\n    display: flex;\r\n    flex-direction: column;\r\n    opacity: 0;\r\n    transform: scale(0.9) translateY(40px);\r\n    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);\r\n    pointer-events: none;\r\n    overflow: hidden;\r\n    font-family: 'Outfit', 'Inter', -apple-system, sans-serif;\r\n}\r\n\r\n/* Modal Positioning */\r\n.ai-widget-modal.bottom-right {\r\n    bottom: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.ai-widget-modal.bottom-left {\r\n    bottom: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.ai-widget-modal.top-right {\r\n    top: 30px;\r\n    right: 30px;\r\n    transform: scale(0.9) translateY(-40px);\r\n}\r\n\r\n.ai-widget-modal.top-left {\r\n    top: 30px;\r\n    left: 30px;\r\n    transform: scale(0.9) translateY(-40px);\r\n}\r\n\r\n.ai-widget-modal.visible {\r\n    opacity: 1;\r\n    transform: scale(1) translateY(0);\r\n    pointer-events: all;\r\n}\r\n\r\n/* Header */\r\n.modal-header {\r\n    padding: 24px 28px;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    background: rgba(255, 255, 255, 0.4);\r\n}\r\n\r\n.header-content {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n}\r\n\r\n.header-logo {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.modal-header h3 {\r\n    margin: 0;\r\n    font-size: 18px;\r\n    font-weight: 700;\r\n    color: var(--text-main);\r\n}\r\n\r\n.close-btn {\r\n    background: rgba(0, 0, 0, 0.05);\r\n    border: none;\r\n    color: var(--text-muted);\r\n    width: 34px;\r\n    height: 34px;\r\n    border-radius: 50%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    cursor: pointer;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.close-btn:hover {\r\n    background: rgba(0, 0, 0, 0.1);\r\n    color: var(--text-main);\r\n    transform: rotate(90deg);\r\n}\r\n\r\n/* Body */\r\n.modal-body {\r\n    padding: 30px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 24px;\r\n    min-height: 280px;\r\n}\r\n\r\n/* Visualizer Container */\r\n.visualizer-wrapper {\r\n    width: 100%;\r\n    position: relative;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n#ai-widget-visualizer {\r\n    width: 100%;\r\n    height: 140px;\r\n    border-radius: 20px;\r\n    background: rgba(14, 165, 233, 0.03);\r\n}\r\n\r\n/* Status */\r\n.status-container {\r\n    text-align: center;\r\n    animation: fadeIn 0.4s ease-out;\r\n}\r\n\r\n.status-text {\r\n    font-size: 16px;\r\n    color: var(--text-main);\r\n    font-weight: 600;\r\n    margin: 0;\r\n}\r\n\r\n.status-subtext {\r\n    font-size: 13px;\r\n    color: var(--text-muted);\r\n    margin-top: 4px;\r\n}\r\n\r\n/* Connecting Loader */\r\n.connecting-loader {\r\n    width: 60px;\r\n    height: 60px;\r\n    position: relative;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.loader-ring {\r\n    width: 100%;\r\n    height: 100%;\r\n    border: 4px solid rgba(14, 165, 233, 0.1);\r\n    border-top: 4px solid var(--primary-color);\r\n    border-radius: 50%;\r\n    animation: spin 1s linear infinite;\r\n}\r\n\r\n.loader-icon {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 24px;\r\n    height: 24px;\r\n}\r\n\r\n.ai-widget-btn img,\r\n.header-logo img,\r\n.loader-icon img {\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n    border-radius: 50%;\r\n}\r\n\r\n/* Footer & Buttons */\r\n.modal-footer {\r\n    padding: 24px 30px 30px;\r\n    display: flex;\r\n    gap: 15px;\r\n}\r\n\r\n.btn {\r\n    padding: 14px 28px;\r\n    border: none;\r\n    border-radius: 18px;\r\n    cursor: pointer;\r\n    font-weight: 700;\r\n    font-size: 15px;\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 8px;\r\n}\r\n\r\n.btn-primary {\r\n    background: var(--primary-gradient);\r\n    color: white;\r\n    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);\r\n}\r\n\r\n.btn-primary:hover:not(:disabled) {\r\n    transform: translateY(-2px);\r\n    box-shadow: 0 12px 25px rgba(14, 165, 233, 0.4);\r\n}\r\n\r\n.btn-danger {\r\n    background: white;\r\n    color: #ef4444;\r\n    border: 2px solid #fee2e2;\r\n}\r\n\r\n.btn-danger:hover:not(:disabled) {\r\n    background: #fee2e2;\r\n}\r\n\r\n.btn:disabled {\r\n    opacity: 0.5;\r\n    cursor: not-allowed;\r\n    filter: grayscale(1);\r\n}\r\n\r\n/* Base Animations */\r\n@keyframes spin {\r\n    to {\r\n        transform: rotate(360deg);\r\n    }\r\n}\r\n\r\n@keyframes fadeIn {\r\n    from {\r\n        opacity: 0;\r\n        transform: translateY(10px);\r\n    }\r\n\r\n    to {\r\n        opacity: 1;\r\n        transform: translateY(0);\r\n    }\r\n}\r\n\r\n/* Mobile */\r\n@media (max-width: 480px) {\r\n    .ai-widget-modal {\r\n        bottom: 0 !important;\r\n        right: 0 !important;\r\n        left: 0 !important;\r\n        top: 0 !important;\r\n        width: 100% !important;\r\n        height: 100% !important;\r\n        border-radius: 0;\r\n    }\r\n}";
+  var css_248z = "/* aiPBX Voice Widget Modern Theme - Scoped to avoid conflicts */\r\n:root {\r\n    --aipbx-widget-primary-color: #0EA5E9;\r\n    --aipbx-widget-button-color: #0EA5E9;\r\n    --aipbx-widget-primary-gradient: linear-gradient(135deg, #06B6D4 0%, var(--aipbx-widget-primary-color) 50%, #8B5CF6 100%);\r\n    --aipbx-widget-bg-glass: rgba(255, 255, 255, 0.85);\r\n    --aipbx-widget-border-glass: rgba(255, 255, 255, 0.3);\r\n    --aipbx-widget-shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.15);\r\n    --aipbx-widget-text-main: #1e293b;\r\n    --aipbx-widget-text-muted: #64748b;\r\n}\r\n\r\n.aipbx-widget-hidden {\r\n    display: none !important;\r\n}\r\n\r\n/* Floating Button */\r\n.aipbx-widget-btn {\r\n    position: fixed;\r\n    width: 65px;\r\n    height: 65px;\r\n    border-radius: 22px;\r\n    background: var(--aipbx-widget-button-color);\r\n    background: linear-gradient(135deg, #06B6D4 0%, var(--aipbx-widget-button-color) 50%, #8B5CF6 100%);\r\n    border: none;\r\n    cursor: pointer;\r\n    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);\r\n    z-index: 9999;\r\n    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding: 12px;\r\n    box-sizing: border-box;\r\n}\r\n\r\n/* Positioning Classes */\r\n.aipbx-widget-btn.bottom-right {\r\n    bottom: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.aipbx-widget-btn.bottom-left {\r\n    bottom: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.aipbx-widget-btn.top-right {\r\n    top: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.aipbx-widget-btn.top-left {\r\n    top: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.aipbx-widget-btn:hover {\r\n    transform: scale(1.1) rotate(5deg);\r\n    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.6);\r\n}\r\n\r\n.aipbx-widget-btn svg {\r\n    width: 100%;\r\n    height: 100%;\r\n    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));\r\n}\r\n\r\n/* Modal Window */\r\n.aipbx-widget-modal {\r\n    position: fixed;\r\n    width: 380px;\r\n    background: var(--aipbx-widget-bg-glass);\r\n    backdrop-filter: blur(20px);\r\n    -webkit-backdrop-filter: blur(20px);\r\n    border-radius: 30px;\r\n    border: 1px solid var(--aipbx-widget-border-glass);\r\n    box-shadow: var(--aipbx-widget-shadow-premium);\r\n    z-index: 9998;\r\n    display: flex;\r\n    flex-direction: column;\r\n    opacity: 0;\r\n    transform: scale(0.9) translateY(40px);\r\n    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);\r\n    pointer-events: none;\r\n    overflow: hidden;\r\n    font-family: 'Outfit', 'Inter', -apple-system, sans-serif;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.aipbx-widget-modal * {\r\n    box-sizing: border-box;\r\n}\r\n\r\n/* Modal Positioning */\r\n.aipbx-widget-modal.bottom-right {\r\n    bottom: 30px;\r\n    right: 30px;\r\n}\r\n\r\n.aipbx-widget-modal.bottom-left {\r\n    bottom: 30px;\r\n    left: 30px;\r\n}\r\n\r\n.aipbx-widget-modal.top-right {\r\n    top: 30px;\r\n    right: 30px;\r\n    transform: scale(0.9) translateY(-40px);\r\n}\r\n\r\n.aipbx-widget-modal.top-left {\r\n    top: 30px;\r\n    left: 30px;\r\n    transform: scale(0.9) translateY(-40px);\r\n}\r\n\r\n.aipbx-widget-modal.visible {\r\n    opacity: 1;\r\n    transform: scale(1) translateY(0);\r\n    pointer-events: all;\r\n}\r\n\r\n/* Header */\r\n.aipbx-widget-modal-header {\r\n    padding: 24px 28px;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    background: rgba(255, 255, 255, 0.4);\r\n}\r\n\r\n.aipbx-widget-header-content {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n}\r\n\r\n.aipbx-widget-header-logo {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.aipbx-widget-modal-header h3 {\r\n    margin: 0;\r\n    font-size: 18px;\r\n    font-weight: 700;\r\n    color: var(--aipbx-widget-text-main);\r\n}\r\n\r\n.aipbx-widget-close-btn {\r\n    background: rgba(0, 0, 0, 0.05);\r\n    border: none;\r\n    color: var(--aipbx-widget-text-muted);\r\n    width: 34px;\r\n    height: 34px;\r\n    border-radius: 50%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    cursor: pointer;\r\n    transition: all 0.2s;\r\n    padding: 0;\r\n}\r\n\r\n.aipbx-widget-close-btn:hover {\r\n    background: rgba(0, 0, 0, 0.1);\r\n    color: var(--aipbx-widget-text-main);\r\n    transform: rotate(90deg);\r\n}\r\n\r\n/* Body */\r\n.aipbx-widget-modal-body {\r\n    padding: 30px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 24px;\r\n    min-height: 280px;\r\n}\r\n\r\n/* Visualizer Container */\r\n.aipbx-widget-visualizer-wrapper {\r\n    width: 100%;\r\n    position: relative;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n#aipbx-widget-visualizer {\r\n    width: 100%;\r\n    height: 140px;\r\n    border-radius: 20px;\r\n    background: rgba(14, 165, 233, 0.03);\r\n}\r\n\r\n/* Status */\r\n.aipbx-widget-status-container {\r\n    text-align: center;\r\n    animation: aipbxWidgetFadeIn 0.4s ease-out;\r\n}\r\n\r\n.aipbx-widget-status-text {\r\n    font-size: 16px;\r\n    color: var(--aipbx-widget-text-main);\r\n    font-weight: 600;\r\n    margin: 0;\r\n}\r\n\r\n.aipbx-widget-status-subtext {\r\n    font-size: 13px;\r\n    color: var(--aipbx-widget-text-muted);\r\n    margin-top: 4px;\r\n}\r\n\r\n/* Connecting Loader */\r\n.aipbx-widget-connecting-loader {\r\n    width: 60px;\r\n    height: 60px;\r\n    position: relative;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.aipbx-widget-loader-ring {\r\n    width: 100%;\r\n    height: 100%;\r\n    border: 4px solid rgba(14, 165, 233, 0.1);\r\n    border-top: 4px solid var(--aipbx-widget-primary-color);\r\n    border-radius: 50%;\r\n    animation: aipbxWidgetSpin 1s linear infinite;\r\n}\r\n\r\n.aipbx-widget-loader-icon {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 24px;\r\n    height: 24px;\r\n}\r\n\r\n.aipbx-widget-btn img,\r\n.aipbx-widget-header-logo img,\r\n.aipbx-widget-loader-icon img {\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n    border-radius: 50%;\r\n}\r\n\r\n/* Footer & Buttons */\r\n.aipbx-widget-modal-footer {\r\n    padding: 24px 30px 30px;\r\n    display: flex;\r\n    gap: 15px;\r\n}\r\n\r\n.aipbx-widget-action-btn {\r\n    padding: 14px 28px;\r\n    border: none;\r\n    border-radius: 18px;\r\n    cursor: pointer;\r\n    font-weight: 700;\r\n    font-size: 15px;\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 8px;\r\n    outline: none;\r\n    text-decoration: none;\r\n}\r\n\r\n.aipbx-widget-btn-primary {\r\n    background: var(--aipbx-widget-primary-gradient);\r\n    color: white;\r\n    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);\r\n}\r\n\r\n.aipbx-widget-btn-primary:hover:not(:disabled) {\r\n    transform: translateY(-2px);\r\n    box-shadow: 0 12px 25px rgba(14, 165, 233, 0.4);\r\n}\r\n\r\n.aipbx-widget-btn-danger {\r\n    background: white;\r\n    color: #ef4444;\r\n    border: 2px solid #fee2e2;\r\n}\r\n\r\n.aipbx-widget-btn-danger:hover:not(:disabled) {\r\n    background: #fee2e2;\r\n}\r\n\r\n.aipbx-widget-action-btn:disabled {\r\n    opacity: 0.5;\r\n    cursor: not-allowed;\r\n    filter: grayscale(1);\r\n}\r\n\r\n.aipbx-widget-attribution {\r\n    text-align: center;\r\n    padding-bottom: 20px;\r\n    margin-top: -10px;\r\n}\r\n\r\n.aipbx-widget-attribution a {\r\n    font-size: 11px;\r\n    color: var(--aipbx-widget-text-muted);\r\n    text-decoration: none;\r\n    opacity: 0.7;\r\n    transition: opacity 0.2s;\r\n    font-weight: 500;\r\n}\r\n\r\n.aipbx-widget-attribution a:hover {\r\n    opacity: 1;\r\n    color: var(--aipbx-widget-primary-color);\r\n}\r\n\r\n/* Base Animations */\r\n@keyframes aipbxWidgetSpin {\r\n    to {\r\n        transform: rotate(360deg);\r\n    }\r\n}\r\n\r\n@keyframes aipbxWidgetFadeIn {\r\n    from {\r\n        opacity: 0;\r\n        transform: translateY(10px);\r\n    }\r\n\r\n    to {\r\n        opacity: 1;\r\n        transform: translateY(0);\r\n    }\r\n}\r\n\r\n/* Mobile */\r\n@media (max-width: 480px) {\r\n    .aipbx-widget-modal {\r\n        bottom: 0 !important;\r\n        right: 0 !important;\r\n        left: 0 !important;\r\n        top: 0 !important;\r\n        width: 100% !important;\r\n        height: 100% !important;\r\n        border-radius: 0;\r\n    }\r\n}";
   styleInject(css_248z);
 
   /**
@@ -15908,7 +15908,7 @@
       createButton() {
           const btn = document.createElement('div');
           btn.id = 'aipbx-floating-button';
-          btn.className = 'ai-widget-btn bottom-right'; // Default position
+          btn.className = 'aipbx-widget-btn bottom-right'; // Default position
 
           // Combined icon: Handset + aiPBX nodes
           btn.innerHTML = `
@@ -15917,7 +15917,7 @@
                 
                 <!-- Handset Icon -->
                 <path d="M34 26C31.8 26 30 27.8 30 30V34.5C30 52.4 44.6 67 62.5 67H67C69.2 67 71 65.2 71 63V58.5C71 56.3 69.2 54.5 67 54.5L58 54.5C55.8 54.5 54 56.3 54 58.5V60.5C45.5 58.5 38.5 51.5 36.5 43H38.5C40.7 43 42.5 41.2 42.5 39V30C42.5 27.8 40.7 26 38.5 26H34Z" 
-                      fill="white" filter="url(#glow)"/>
+                      fill="white" filter="url(#aipbxGlow)"/>
                 
                 <!-- aiPBX styled nodes around -->
                 <g opacity="0.8">
@@ -15928,7 +15928,7 @@
                 </g>
 
                 <defs>
-                    <filter id="glow" x="0" y="0" width="100" height="100">
+                    <filter id="aipbxGlow" x="0" y="0" width="100" height="100">
                         <feGaussianBlur stdDeviation="2.5" result="blur"/>
                         <feComposite in="SourceGraphic" in2="blur" operator="over"/>
                     </filter>
@@ -15955,11 +15955,11 @@
       }
 
       hide() {
-          this.button.classList.add('hidden');
+          this.button.classList.add('aipbx-widget-hidden');
       }
 
       show() {
-          this.button.classList.remove('hidden');
+          this.button.classList.remove('aipbx-widget-hidden');
       }
 
       destroy() {
@@ -16082,7 +16082,7 @@
           const appearance = this.config.appearance || {};
           const position = appearance.buttonPosition || 'bottom-right';
 
-          modal.className = `ai-widget-modal ${position}`;
+          modal.className = `aipbx-widget-modal ${position}`;
 
           let logoContent;
           if (this.config.logoUrl) {
@@ -16113,51 +16113,54 @@
           }
 
           modal.innerHTML = `
-            <div class="modal-header">
-                <div class="header-content">
-                    <div class="header-logo">${logoContent}</div>
+            <div class="aipbx-widget-modal-header">
+                <div class="aipbx-widget-header-content">
+                    <div class="aipbx-widget-header-logo">${logoContent}</div>
                     <h3>${this.config.assistantName || 'aiPBX Voice Assistant'}</h3>
                 </div>
-                <button class="close-btn" aria-label="Close">
+                <button class="aipbx-widget-close-btn" aria-label="Close">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="visualizer-wrapper">
-                    <canvas id="ai-widget-visualizer" width="320" height="140"></canvas>
+            <div class="aipbx-widget-modal-body">
+                <div class="aipbx-widget-visualizer-wrapper">
+                    <canvas id="aipbx-widget-visualizer" width="320" height="140"></canvas>
                 </div>
                 
-                <div class="status-container" id="widget-status-area">
-                    <div class="status-ready" id="status-ready">
-                        <p class="status-text">${this.translator.t('ready_to_talk')}</p>
-                        <p class="status-subtext">${this.translator.t('click_to_begin')}</p>
+                <div class="aipbx-widget-status-container" id="aipbx-widget-status-area">
+                    <div class="aipbx-widget-status-ready" id="status-ready">
+                        <p class="aipbx-widget-status-text">${this.translator.t('ready_to_talk')}</p>
+                        <p class="aipbx-widget-status-subtext">${this.translator.t('click_to_begin')}</p>
                     </div>
                     
-                    <div class="connecting-loader hidden" id="status-connecting">
-                        <div class="loader-ring"></div>
-                        <div class="loader-icon">${logoContent}</div>
+                    <div class="aipbx-widget-connecting-loader aipbx-widget-hidden" id="status-connecting">
+                        <div class="aipbx-widget-loader-ring"></div>
+                        <div class="aipbx-widget-loader-icon">${logoContent}</div>
                     </div>
                     
-                    <div class="status-active hidden" id="status-active">
-                        <p class="status-text">${this.translator.t('listening')}</p>
-                        <p class="status-subtext">${this.translator.t('ai_ready')}</p>
+                    <div class="aipbx-widget-status-active aipbx-widget-hidden" id="status-active">
+                        <p class="aipbx-widget-status-text">${this.translator.t('listening')}</p>
+                        <p class="aipbx-widget-status-subtext">${this.translator.t('ai_ready')}</p>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary btn-start">
+            <div class="aipbx-widget-modal-footer">
+                <button class="aipbx-widget-action-btn aipbx-widget-btn-primary btn-start">
                     <span>${this.translator.t('start_conversation')}</span>
                 </button>
-                <button class="btn btn-danger btn-stop hidden" disabled>
+                <button class="aipbx-widget-action-btn aipbx-widget-btn-danger btn-stop aipbx-widget-hidden" disabled>
                     <span>${this.translator.t('stop_call')}</span>
                 </button>
+            </div>
+            <div class="aipbx-widget-attribution">
+                <a href="https://aipbx.net" target="_blank" rel="noopener noreferrer">powered by aipbx.net</a>
             </div>
         `;
 
           // Event listeners
-          modal.querySelector('.close-btn').addEventListener('click', () => {
+          modal.querySelector('.aipbx-widget-close-btn').addEventListener('click', () => {
               this.hide();
               this.emit('close');
           });
@@ -16195,12 +16198,12 @@
       }
 
       refreshText() {
-          const readyText = this.modal.querySelector('#status-ready .status-text');
-          const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
-          const listeningText = this.modal.querySelector('#status-active .status-text');
-          const listeningSubtext = this.modal.querySelector('#status-active .status-subtext');
+          const readyText = this.modal.querySelector('#status-ready .aipbx-widget-status-text');
+          const readySubtext = this.modal.querySelector('#status-ready .aipbx-widget-status-subtext');
+          const listeningText = this.modal.querySelector('#status-active .aipbx-widget-status-text');
+          const listeningSubtext = this.modal.querySelector('#status-active .aipbx-widget-status-subtext');
           const startBtnText = this.modal.querySelector('.btn-start span');
-          const stopBtnText = this.modal.querySelector('.btn-danger span');
+          const stopBtnText = this.modal.querySelector('.btn-stop span');
 
           if (readyText) readyText.textContent = this.translator.t('ready_to_talk');
           if (readySubtext) readySubtext.textContent = this.translator.t('click_to_begin');
@@ -16218,51 +16221,51 @@
           const stopBtn = this.modal.querySelector('.btn-stop');
 
           // Hide all areas first
-          [readyArea, connectingArea, activeArea].forEach(el => el?.classList.add('hidden'));
+          [readyArea, connectingArea, activeArea].forEach(el => el?.classList.add('aipbx-widget-hidden'));
 
           switch (state) {
               case 'connecting':
-                  connectingArea?.classList.remove('hidden');
-                  startBtn.classList.add('hidden');
-                  stopBtn.classList.remove('hidden');
+                  connectingArea?.classList.remove('aipbx-widget-hidden');
+                  startBtn.classList.add('aipbx-widget-hidden');
+                  stopBtn.classList.remove('aipbx-widget-hidden');
                   stopBtn.disabled = true;
                   break;
 
               case 'connected':
-                  activeArea?.classList.remove('hidden');
-                  startBtn.classList.add('hidden');
-                  stopBtn.classList.remove('hidden');
+                  activeArea?.classList.remove('aipbx-widget-hidden');
+                  startBtn.classList.add('aipbx-widget-hidden');
+                  stopBtn.classList.remove('aipbx-widget-hidden');
                   stopBtn.disabled = false;
                   break;
 
               case 'error':
-                  readyArea?.classList.remove('hidden');
-                  const subtext = this.modal.querySelector('#status-ready .status-subtext');
+                  readyArea?.classList.remove('aipbx-widget-hidden');
+                  const subtext = this.modal.querySelector('#status-ready .aipbx-widget-status-subtext');
                   if (subtext) {
                       subtext.textContent = message || this.translator.t('error_occurred');
                       subtext.style.color = '#ef4444';
                   }
-                  startBtn.classList.remove('hidden');
-                  stopBtn.classList.add('hidden');
+                  startBtn.classList.remove('aipbx-widget-hidden');
+                  stopBtn.classList.add('aipbx-widget-hidden');
                   startBtn.disabled = false;
                   break;
 
               case 'ready':
               default:
-                  readyArea?.classList.remove('hidden');
-                  const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
+                  readyArea?.classList.remove('aipbx-widget-hidden');
+                  const readySubtext = this.modal.querySelector('#status-ready .aipbx-widget-status-subtext');
                   if (readySubtext) {
                       readySubtext.textContent = this.translator.t('click_to_begin');
                       readySubtext.style.color = '';
                   }
-                  startBtn.classList.remove('hidden');
-                  stopBtn.classList.add('hidden');
+                  startBtn.classList.remove('aipbx-widget-hidden');
+                  stopBtn.classList.add('aipbx-widget-hidden');
                   startBtn.disabled = false;
           }
       }
 
       attachVisualizer(audioStream) {
-          const canvas = this.modal.querySelector('#ai-widget-visualizer');
+          const canvas = this.modal.querySelector('#aipbx-widget-visualizer');
           if (!canvas) return;
 
           if (this.visualizer) {
@@ -16372,7 +16375,7 @@
 
   /**
    * Main AI Voice Widget Class
-   * Version: 1.2.2
+   * Version: 1.2.5
    */
   class AIVoiceWidget {
       constructor(publicKey, apiUrl) {
@@ -16395,7 +16398,7 @@
       async init(options = {}) {
           try {
               if ("development" !== 'production') {
-                  console.log('%c[aiPBX Widget] Version: 1.2.2', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                  console.log('%c[aiPBX Widget] Version: 1.2.5', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget with key:', this.publicKey);
               }
 
@@ -16586,18 +16589,18 @@
 
           // Apply colors if provided
           if (appearance.primaryColor) {
-              root.style.setProperty('--primary-color', appearance.primaryColor);
+              root.style.setProperty('--aipbx-widget-primary-color', appearance.primaryColor);
           }
           if (appearance.buttonColor) {
-              root.style.setProperty('--button-color', appearance.buttonColor);
+              root.style.setProperty('--aipbx-widget-button-color', appearance.buttonColor);
           }
 
           // Apply theme colors if dark mode is requested
           if (appearance.theme === 'dark') {
-              root.style.setProperty('--bg-glass', 'rgba(15, 23, 42, 0.85)');
-              root.style.setProperty('--text-main', '#f8fafc');
-              root.style.setProperty('--text-muted', '#94a3b8');
-              root.style.setProperty('--border-glass', 'rgba(255, 255, 255, 0.1)');
+              root.style.setProperty('--aipbx-widget-bg-glass', 'rgba(15, 23, 42, 0.85)');
+              root.style.setProperty('--aipbx-widget-text-main', '#f8fafc');
+              root.style.setProperty('--aipbx-widget-text-muted', '#94a3b8');
+              root.style.setProperty('--aipbx-widget-border-glass', 'rgba(255, 255, 255, 0.1)');
           }
 
           // Apply positioning (handled in components via classes)
@@ -16607,7 +16610,7 @@
 
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.2.2',
+              version: '1.2.5',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),

@@ -18,7 +18,7 @@ export class ModalWindow extends EventEmitter {
         const appearance = this.config.appearance || {};
         const position = appearance.buttonPosition || 'bottom-right';
 
-        modal.className = `ai-widget-modal ${position}`;
+        modal.className = `aipbx-widget-modal ${position}`;
 
         let logoContent;
         if (this.config.logoUrl) {
@@ -49,51 +49,54 @@ export class ModalWindow extends EventEmitter {
         }
 
         modal.innerHTML = `
-            <div class="modal-header">
-                <div class="header-content">
-                    <div class="header-logo">${logoContent}</div>
+            <div class="aipbx-widget-modal-header">
+                <div class="aipbx-widget-header-content">
+                    <div class="aipbx-widget-header-logo">${logoContent}</div>
                     <h3>${this.config.assistantName || 'aiPBX Voice Assistant'}</h3>
                 </div>
-                <button class="close-btn" aria-label="Close">
+                <button class="aipbx-widget-close-btn" aria-label="Close">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="visualizer-wrapper">
-                    <canvas id="ai-widget-visualizer" width="320" height="140"></canvas>
+            <div class="aipbx-widget-modal-body">
+                <div class="aipbx-widget-visualizer-wrapper">
+                    <canvas id="aipbx-widget-visualizer" width="320" height="140"></canvas>
                 </div>
                 
-                <div class="status-container" id="widget-status-area">
-                    <div class="status-ready" id="status-ready">
-                        <p class="status-text">${this.translator.t('ready_to_talk')}</p>
-                        <p class="status-subtext">${this.translator.t('click_to_begin')}</p>
+                <div class="aipbx-widget-status-container" id="aipbx-widget-status-area">
+                    <div class="aipbx-widget-status-ready" id="status-ready">
+                        <p class="aipbx-widget-status-text">${this.translator.t('ready_to_talk')}</p>
+                        <p class="aipbx-widget-status-subtext">${this.translator.t('click_to_begin')}</p>
                     </div>
                     
-                    <div class="connecting-loader hidden" id="status-connecting">
-                        <div class="loader-ring"></div>
-                        <div class="loader-icon">${logoContent}</div>
+                    <div class="aipbx-widget-connecting-loader aipbx-widget-hidden" id="status-connecting">
+                        <div class="aipbx-widget-loader-ring"></div>
+                        <div class="aipbx-widget-loader-icon">${logoContent}</div>
                     </div>
                     
-                    <div class="status-active hidden" id="status-active">
-                        <p class="status-text">${this.translator.t('listening')}</p>
-                        <p class="status-subtext">${this.translator.t('ai_ready')}</p>
+                    <div class="aipbx-widget-status-active aipbx-widget-hidden" id="status-active">
+                        <p class="aipbx-widget-status-text">${this.translator.t('listening')}</p>
+                        <p class="aipbx-widget-status-subtext">${this.translator.t('ai_ready')}</p>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary btn-start">
+            <div class="aipbx-widget-modal-footer">
+                <button class="aipbx-widget-action-btn aipbx-widget-btn-primary btn-start">
                     <span>${this.translator.t('start_conversation')}</span>
                 </button>
-                <button class="btn btn-danger btn-stop hidden" disabled>
+                <button class="aipbx-widget-action-btn aipbx-widget-btn-danger btn-stop aipbx-widget-hidden" disabled>
                     <span>${this.translator.t('stop_call')}</span>
                 </button>
+            </div>
+            <div class="aipbx-widget-attribution">
+                <a href="https://aipbx.net" target="_blank" rel="noopener noreferrer">powered by aipbx.net</a>
             </div>
         `;
 
         // Event listeners
-        modal.querySelector('.close-btn').addEventListener('click', () => {
+        modal.querySelector('.aipbx-widget-close-btn').addEventListener('click', () => {
             this.hide();
             this.emit('close');
         });
@@ -131,12 +134,12 @@ export class ModalWindow extends EventEmitter {
     }
 
     refreshText() {
-        const readyText = this.modal.querySelector('#status-ready .status-text');
-        const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
-        const listeningText = this.modal.querySelector('#status-active .status-text');
-        const listeningSubtext = this.modal.querySelector('#status-active .status-subtext');
+        const readyText = this.modal.querySelector('#status-ready .aipbx-widget-status-text');
+        const readySubtext = this.modal.querySelector('#status-ready .aipbx-widget-status-subtext');
+        const listeningText = this.modal.querySelector('#status-active .aipbx-widget-status-text');
+        const listeningSubtext = this.modal.querySelector('#status-active .aipbx-widget-status-subtext');
         const startBtnText = this.modal.querySelector('.btn-start span');
-        const stopBtnText = this.modal.querySelector('.btn-danger span');
+        const stopBtnText = this.modal.querySelector('.btn-stop span');
 
         if (readyText) readyText.textContent = this.translator.t('ready_to_talk');
         if (readySubtext) readySubtext.textContent = this.translator.t('click_to_begin');
@@ -154,51 +157,51 @@ export class ModalWindow extends EventEmitter {
         const stopBtn = this.modal.querySelector('.btn-stop');
 
         // Hide all areas first
-        [readyArea, connectingArea, activeArea].forEach(el => el?.classList.add('hidden'));
+        [readyArea, connectingArea, activeArea].forEach(el => el?.classList.add('aipbx-widget-hidden'));
 
         switch (state) {
             case 'connecting':
-                connectingArea?.classList.remove('hidden');
-                startBtn.classList.add('hidden');
-                stopBtn.classList.remove('hidden');
+                connectingArea?.classList.remove('aipbx-widget-hidden');
+                startBtn.classList.add('aipbx-widget-hidden');
+                stopBtn.classList.remove('aipbx-widget-hidden');
                 stopBtn.disabled = true;
                 break;
 
             case 'connected':
-                activeArea?.classList.remove('hidden');
-                startBtn.classList.add('hidden');
-                stopBtn.classList.remove('hidden');
+                activeArea?.classList.remove('aipbx-widget-hidden');
+                startBtn.classList.add('aipbx-widget-hidden');
+                stopBtn.classList.remove('aipbx-widget-hidden');
                 stopBtn.disabled = false;
                 break;
 
             case 'error':
-                readyArea?.classList.remove('hidden');
-                const subtext = this.modal.querySelector('#status-ready .status-subtext');
+                readyArea?.classList.remove('aipbx-widget-hidden');
+                const subtext = this.modal.querySelector('#status-ready .aipbx-widget-status-subtext');
                 if (subtext) {
                     subtext.textContent = message || this.translator.t('error_occurred');
                     subtext.style.color = '#ef4444';
                 }
-                startBtn.classList.remove('hidden');
-                stopBtn.classList.add('hidden');
+                startBtn.classList.remove('aipbx-widget-hidden');
+                stopBtn.classList.add('aipbx-widget-hidden');
                 startBtn.disabled = false;
                 break;
 
             case 'ready':
             default:
-                readyArea?.classList.remove('hidden');
-                const readySubtext = this.modal.querySelector('#status-ready .status-subtext');
+                readyArea?.classList.remove('aipbx-widget-hidden');
+                const readySubtext = this.modal.querySelector('#status-ready .aipbx-widget-status-subtext');
                 if (readySubtext) {
                     readySubtext.textContent = this.translator.t('click_to_begin');
                     readySubtext.style.color = '';
                 }
-                startBtn.classList.remove('hidden');
-                stopBtn.classList.add('hidden');
+                startBtn.classList.remove('aipbx-widget-hidden');
+                stopBtn.classList.add('aipbx-widget-hidden');
                 startBtn.disabled = false;
         }
     }
 
     attachVisualizer(audioStream) {
-        const canvas = this.modal.querySelector('#ai-widget-visualizer');
+        const canvas = this.modal.querySelector('#aipbx-widget-visualizer');
         if (!canvas) return;
 
         if (this.visualizer) {

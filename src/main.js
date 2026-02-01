@@ -8,7 +8,7 @@ import { Translator } from './utils/translations.js';
 
 /**
  * Main AI Voice Widget Class
- * Version: 1.2.2
+ * Version: 1.2.5
  */
 class AIVoiceWidget {
     constructor(publicKey, apiUrl) {
@@ -31,7 +31,7 @@ class AIVoiceWidget {
     async init(options = {}) {
         try {
             if (process.env.NODE_ENV !== 'production') {
-                console.log('%c[aiPBX Widget] Version: 1.2.2', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                console.log('%c[aiPBX Widget] Version: 1.2.5', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                 this.logger.log('Initializing widget with key:', this.publicKey);
             }
 
@@ -222,18 +222,18 @@ class AIVoiceWidget {
 
         // Apply colors if provided
         if (appearance.primaryColor) {
-            root.style.setProperty('--primary-color', appearance.primaryColor);
+            root.style.setProperty('--aipbx-widget-primary-color', appearance.primaryColor);
         }
         if (appearance.buttonColor) {
-            root.style.setProperty('--button-color', appearance.buttonColor);
+            root.style.setProperty('--aipbx-widget-button-color', appearance.buttonColor);
         }
 
         // Apply theme colors if dark mode is requested
         if (appearance.theme === 'dark') {
-            root.style.setProperty('--bg-glass', 'rgba(15, 23, 42, 0.85)');
-            root.style.setProperty('--text-main', '#f8fafc');
-            root.style.setProperty('--text-muted', '#94a3b8');
-            root.style.setProperty('--border-glass', 'rgba(255, 255, 255, 0.1)');
+            root.style.setProperty('--aipbx-widget-bg-glass', 'rgba(15, 23, 42, 0.85)');
+            root.style.setProperty('--aipbx-widget-text-main', '#f8fafc');
+            root.style.setProperty('--aipbx-widget-text-muted', '#94a3b8');
+            root.style.setProperty('--aipbx-widget-border-glass', 'rgba(255, 255, 255, 0.1)');
         }
 
         // Apply positioning (handled in components via classes)
@@ -243,7 +243,7 @@ class AIVoiceWidget {
 
     exposePublicAPI() {
         window.AIWidget = {
-            version: '1.2.2',
+            version: '1.2.5',
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),

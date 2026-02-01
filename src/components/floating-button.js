@@ -13,7 +13,7 @@ export class FloatingButton extends EventEmitter {
     createButton() {
         const btn = document.createElement('div');
         btn.id = 'aipbx-floating-button';
-        btn.className = 'ai-widget-btn bottom-right'; // Default position
+        btn.className = 'aipbx-widget-btn bottom-right'; // Default position
 
         // Combined icon: Handset + aiPBX nodes
         btn.innerHTML = `
@@ -22,7 +22,7 @@ export class FloatingButton extends EventEmitter {
                 
                 <!-- Handset Icon -->
                 <path d="M34 26C31.8 26 30 27.8 30 30V34.5C30 52.4 44.6 67 62.5 67H67C69.2 67 71 65.2 71 63V58.5C71 56.3 69.2 54.5 67 54.5L58 54.5C55.8 54.5 54 56.3 54 58.5V60.5C45.5 58.5 38.5 51.5 36.5 43H38.5C40.7 43 42.5 41.2 42.5 39V30C42.5 27.8 40.7 26 38.5 26H34Z" 
-                      fill="white" filter="url(#glow)"/>
+                      fill="white" filter="url(#aipbxGlow)"/>
                 
                 <!-- aiPBX styled nodes around -->
                 <g opacity="0.8">
@@ -33,7 +33,7 @@ export class FloatingButton extends EventEmitter {
                 </g>
 
                 <defs>
-                    <filter id="glow" x="0" y="0" width="100" height="100">
+                    <filter id="aipbxGlow" x="0" y="0" width="100" height="100">
                         <feGaussianBlur stdDeviation="2.5" result="blur"/>
                         <feComposite in="SourceGraphic" in2="blur" operator="over"/>
                     </filter>
@@ -60,11 +60,11 @@ export class FloatingButton extends EventEmitter {
     }
 
     hide() {
-        this.button.classList.add('hidden');
+        this.button.classList.add('aipbx-widget-hidden');
     }
 
     show() {
-        this.button.classList.remove('hidden');
+        this.button.classList.remove('aipbx-widget-hidden');
     }
 
     destroy() {
