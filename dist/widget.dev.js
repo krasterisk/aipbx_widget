@@ -16372,7 +16372,7 @@
 
   /**
    * Main AI Voice Widget Class
-   * Version: 1.2.0
+   * Version: 1.2.2
    */
   class AIVoiceWidget {
       constructor(publicKey, apiUrl) {
@@ -16395,7 +16395,7 @@
       async init(options = {}) {
           try {
               if ("development" !== 'production') {
-                  console.log('%c[aiPBX Widget] Version: 1.2.0', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                  console.log('%c[aiPBX Widget] Version: 1.2.2', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget with key:', this.publicKey);
               }
 
@@ -16406,7 +16406,11 @@
                   if (this.config.logo.startsWith('http')) {
                       this.config.logoUrl = this.config.logo;
                   } else {
-                      const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+                      let baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+                      // Remove /api from the end of baseUrl if present to correctly point to static assets
+                      if (baseUrl.toLowerCase().endsWith('/api')) {
+                          baseUrl = baseUrl.slice(0, -4);
+                      }
                       const logoPath = this.config.logo.startsWith('/') ? this.config.logo : `/${this.config.logo}`;
                       this.config.logoUrl = `${baseUrl}${logoPath}`;
                   }
@@ -16603,7 +16607,7 @@
 
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.2.0',
+              version: '1.2.2',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),
