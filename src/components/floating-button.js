@@ -13,12 +13,29 @@ export class FloatingButton extends EventEmitter {
     createButton() {
         const btn = document.createElement('div');
         btn.id = 'aipbx-floating-button';
+        btn.className = 'ai-widget-btn'; // Use modern class
+
+        // Simplified icon from aipbx_logo
         btn.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                <line x1="12" y1="19" x2="12" y2="23"/>
-                <line x1="8" y1="23" x2="16" y2="23"/>
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="white" fill-opacity="0.15"/>
+                <g filter="url(#glow)">
+                    <circle cx="50" cy="30" r="5" fill="white"/>
+                    <circle cx="75" cy="45" r="5" fill="white"/>
+                    <circle cx="50" cy="70" r="5" fill="white"/>
+                    <circle cx="25" cy="45" r="5" fill="white"/>
+                    <line x1="50" y1="30" x2="75" y2="45" stroke="white" stroke-width="3"/>
+                    <line x1="75" y1="45" x2="50" y2="70" stroke="white" stroke-width="3"/>
+                    <line x1="50" y1="70" x2="25" y2="45" stroke="white" stroke-width="3"/>
+                    <line x1="25" y1="45" x2="50" y2="30" stroke="white" stroke-width="3"/>
+                    <circle cx="50" cy="50" r="8" fill="white"/>
+                </g>
+                <defs>
+                    <filter id="glow" x="0" y="0" width="100" height="100">
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                </defs>
             </svg>
         `;
 

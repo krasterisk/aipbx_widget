@@ -1,0 +1,61 @@
+<svg width="240" height="100" viewBox="0 0 240 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06B6D4"/>
+      <stop offset="50%" style="stop-color:#0EA5E9"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <radialGradient id="centerGlow">
+      <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:0.3"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Centered larger icon -->
+  <g transform="translate(85, 10)" filter="url(#glow)">
+    <!-- Outer nodes -->
+    <circle cx="35" cy="10" r="4" fill="#06B6D4" opacity="0.9"/>
+    <circle cx="60" cy="5" r="4" fill="#0EA5E9" opacity="0.9"/>
+    <circle cx="10" cy="25" r="4" fill="#06B6D4" opacity="0.9"/>
+    <circle cx="60" cy="30" r="4" fill="#8B5CF6" opacity="0.9"/>
+    <circle cx="10" cy="50" r="4" fill="#0EA5E9" opacity="0.9"/>
+    <circle cx="35" cy="65" r="4" fill="#8B5CF6" opacity="0.9"/>
+    <circle cx="60" cy="60" r="4" fill="#8B5CF6" opacity="0.9"/>
+    
+    <!-- Connection lines -->
+    <line x1="35" y1="10" x2="28" y2="28" stroke="url(#mainGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="60" y1="5" x2="42" y2="28" stroke="url(#mainGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="10" y1="25" x2="28" y2="28" stroke="url(#mainGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="60" y1="30" x2="42" y2="28" stroke="url(#mainGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="10" y1="50" x2="28" y2="47" stroke="url(#mainGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="35" y1="65" x2="28" y2="47" stroke="url(#mainGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="60" y1="60" x2="42" y2="47" stroke="url(#mainGrad)" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Inner square -->
+    <line x1="28" y1="28" x2="42" y2="28" stroke="url(#mainGrad)" stroke-width="2.5" opacity="0.8"/>
+    <line x1="28" y1="28" x2="28" y2="47" stroke="url(#mainGrad)" stroke-width="2.5" opacity="0.8"/>
+    <line x1="42" y1="28" x2="42" y2="47" stroke="url(#mainGrad)" stroke-width="2.5" opacity="0.8"/>
+    <line x1="28" y1="47" x2="42" y2="47" stroke="url(#mainGrad)" stroke-width="2.5" opacity="0.8"/>
+    <line x1="28" y1="28" x2="42" y2="47" stroke="url(#mainGrad)" stroke-width="2" opacity="0.4"/>
+    <line x1="42" y1="28" x2="28" y2="47" stroke="url(#mainGrad)" stroke-width="2" opacity="0.4"/>
+    
+    <!-- Center nodes -->
+    <circle cx="28" cy="28" r="5" fill="#06B6D4"/>
+    <circle cx="42" cy="28" r="5" fill="#0EA5E9"/>
+    <circle cx="28" cy="47" r="5" fill="#0EA5E9"/>
+    <circle cx="42" cy="47" r="5" fill="#8B5CF6"/>
+    
+    <!-- Core -->
+    <circle cx="35" cy="37.5" r="7" fill="url(#centerGlow)"/>
+    <circle cx="35" cy="37.5" r="4" fill="#06B6D4"/>
+  </g>
+</svg>

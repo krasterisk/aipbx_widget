@@ -1,5 +1,5 @@
 /**
- * Audio Visualizer Component
+ * Modern Audio Visualizer Component
  */
 export class AudioVisualizer {
     constructor(canvasElement) {
@@ -8,6 +8,9 @@ export class AudioVisualizer {
         this.analyser = null;
         this.animationId = null;
         this.audioContext = null;
+
+        // Match modern theme colors
+        this.colors = ['#06B6D4', '#0EA5E9', '#8B5CF6'];
     }
 
     connect(audioStream) {
@@ -16,11 +19,10 @@ export class AudioVisualizer {
             const source = this.audioContext.createMediaStreamSource(audioStream);
 
             this.analyser = this.audioContext.createAnalyser();
-            this.analyser.fftSize = 128;
-            this.analyser.smoothingTimeConstant = 0.8;
+            this.analyser.fftSize = 64; // Fewer bars for cleaner look
+            this.analyser.smoothingTimeConstant = 0.85;
 
             source.connect(this.analyser);
-
             this.draw();
         } catch (error) {
             console.error('Failed to create audio visualizer:', error);
@@ -36,32 +38,46 @@ export class AudioVisualizer {
         const dataArray = new Uint8Array(bufferLength);
         this.analyser.getByteFrequencyData(dataArray);
 
-        // Clear canvas
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        const width = this.canvas.width;
+        const height = this.canvas.height;
+        const centerY = height / 2;
 
-        // Draw bars
-        const barWidth = (this.canvas.width / bufferLength) * 2.5;
-        let x = 0;
+        // Clear canvas with slight transparency for a trail effect if desired
+        // but for this design clear is better for glassmorphism
+        this.ctx.clearRect(0, 0, width, height);
+
+        // Calculate bar metrics
+        const barWidth = (width / bufferLength) * 0.8;
+        const gap = (width / bufferLength) * 0.2;
+
+        // Center the bars horizontally
+        let x = (width - (barWidth + gap) * bufferLength) / 2;
 
         for (let i = 0; i < bufferLength; i++) {
-            const barHeight = (dataArray[i] / 255) * this.canvas.height * 0.8;
+            // Normalize height
+            const barHeight = (dataArray[i] / 255) * height * 0.6 + 4;
 
-            // Gradient color
-            const hue = (i / bufferLength) * 280 + 240; // Purple to blue
-            this.ctx.fillStyle = `hsl(${hue}, 70%, 60%)`;
+            // Gradient based on index
+            const gradient = this.ctx.createLinearGradient(0, centerY - barHeight / 2, 0, centerY + barHeight / 2);
+            gradient.addColorStop(0, '#8B5CF6'); // Violet
+            gradient.addColorStop(0.5, '#0EA5E9'); // Sky Blue
+            gradient.addColorStop(1, '#06B6D4'); // Cyan
 
-            // Draw rounded bar
+            this.ctx.fillStyle = gradient;
+
+            // Draw symmetric rounded bar from center
             this.ctx.beginPath();
+            const radius = barWidth / 2;
             this.ctx.roundRect(
                 x,
-                this.canvas.height - barHeight,
-                barWidth - 2,
+                centerY - barHeight / 2,
+                barWidth,
                 barHeight,
-                2
+                radius
             );
             this.ctx.fill();
 
-            x += barWidth;
+            x += barWidth + gap;
         }
     }
 

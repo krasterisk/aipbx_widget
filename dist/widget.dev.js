@@ -28,7 +28,7 @@
     }
   }
 
-  var css_248z = "/* AI Voice Widget Styles */\r\n.hidden { display: none !important; }\r\n\r\n/* Floating Button */\r\n.ai-widget-btn {\r\n    position: fixed;\r\n    bottom: 20px;\r\n    right: 20px;\r\n    width: 60px;\r\n    height: 60px;\r\n    border-radius: 50%;\r\n    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r\n    border: none;\r\n    cursor: pointer;\r\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);\r\n    z-index: 9999;\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    outline: none;\r\n}\r\n\r\n.ai-widget-btn:hover {\r\n    transform: scale(1.1) translateY(-2px);\r\n    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.ai-widget-btn:active {\r\n    transform: scale(1.05);\r\n}\r\n\r\n/* Modal Window */\r\n.ai-widget-modal {\r\n    position: fixed;\r\n    bottom: 90px;\r\n    right: 20px;\r\n    width: 350px;\r\n    max-height: 500px;\r\n    background: white;\r\n    border-radius: 16px;\r\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);\r\n    z-index: 9998;\r\n    display: flex;\r\n    flex-direction: column;\r\n    opacity: 0;\r\n    transform: translateY(20px);\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    pointer-events: none;\r\n    overflow: hidden;\r\n}\r\n\r\n.ai-widget-modal.visible {\r\n    opacity: 1;\r\n    transform: translateY(0);\r\n    pointer-events: all;\r\n}\r\n\r\n/* Modal Header */\r\n.modal-header {\r\n    padding: 16px 20px;\r\n    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\r\n    color: white;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n}\r\n\r\n.modal-header h3 {\r\n    margin: 0;\r\n    font-size: 16px;\r\n    font-weight: 600;\r\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\r\n}\r\n\r\n.close-btn {\r\n    background: none;\r\n    border: none;\r\n    color: white;\r\n    font-size: 28px;\r\n    line-height: 1;\r\n    cursor: pointer;\r\n    padding: 0;\r\n    width: 30px;\r\n    height: 30px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    border-radius: 4px;\r\n    transition: background 0.2s;\r\n}\r\n\r\n.close-btn:hover {\r\n    background: rgba(255, 255, 255, 0.2);\r\n}\r\n\r\n/* Modal Body */\r\n.modal-body {\r\n    flex: 1;\r\n    padding: 24px 20px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 16px;\r\n    min-height: 250px;\r\n}\r\n\r\n#ai-widget-visualizer {\r\n    width: 100%;\r\n    height: 150px;\r\n    background: linear-gradient(135deg, #f5f7fa 0%, #e3e8ee 100%);\r\n    border-radius: 12px;\r\n}\r\n\r\n.status {\r\n    text-align: center;\r\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\r\n}\r\n\r\n.status-icon {\r\n    font-size: 32px;\r\n    display: block;\r\n    margin-bottom: 8px;\r\n}\r\n\r\n.status-text {\r\n    margin: 0;\r\n    font-size: 14px;\r\n    color: #4a5568;\r\n    font-weight: 500;\r\n}\r\n\r\n/* Modal Footer */\r\n.modal-footer {\r\n    padding: 16px 20px;\r\n    display: flex;\r\n    gap: 12px;\r\n    justify-content: center;\r\n    border-top: 1px solid #e2e8f0;\r\n}\r\n\r\n.btn {\r\n    padding: 12px 24px;\r\n    border: none;\r\n    border-radius: 8px;\r\n    cursor: pointer;\r\n    font-weight: 600;\r\n    font-size: 14px;\r\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\r\n    transition: all 0.2s;\r\n    outline: none;\r\n    flex: 1;\r\n}\r\n\r\n.btn-primary {\r\n    background: #667eea;\r\n    color: white;\r\n}\r\n\r\n.btn-primary:hover:not(:disabled) {\r\n    background: #5568d3;\r\n    transform: translateY(-1px);\r\n    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);\r\n}\r\n\r\n.btn-danger {\r\n    background: #ef4444;\r\n    color: white;\r\n}\r\n\r\n.btn-danger:hover:not(:disabled) {\r\n    background: #dc2626;\r\n    transform: translateY(-1px);\r\n    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);\r\n}\r\n\r\n.btn:disabled {\r\n    background: #cbd5e0;\r\n    cursor: not-allowed;\r\n    transform: none;\r\n    box-shadow: none;\r\n}\r\n\r\n.btn:active:not(:disabled) {\r\n    transform: translateY(0);\r\n}\r\n\r\n/* Toast Notifications */\r\n.ai-widget-toast {\r\n    position: fixed;\r\n    top: 20px;\r\n    right: 20px;\r\n    max-width: 350px;\r\n    padding: 16px 20px;\r\n    background: white;\r\n    border-radius: 8px;\r\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);\r\n    z-index: 10000;\r\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\r\n    font-size: 14px;\r\n    opacity: 0;\r\n    transform: translateY(-10px);\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    pointer-events: none;\r\n}\r\n\r\n.ai-widget-toast.visible {\r\n    opacity: 1;\r\n    transform: translateY(0);\r\n}\r\n\r\n.ai-widget-toast.error {\r\n    background: #fee2e2;\r\n    color: #991b1b;\r\n    border-left: 4px solid #ef4444;\r\n}\r\n\r\n/* Mobile Responsive */\r\n@media (max-width: 768px) {\r\n    .ai-widget-modal {\r\n        bottom: 0;\r\n        right: 0;\r\n        left: 0;\r\n        width: 100%;\r\n        max-width: 100%;\r\n        height: 100vh;\r\n        max-height: 100vh;\r\n        border-radius: 0;\r\n    }\r\n\r\n    .ai-widget-btn {\r\n        bottom: 16px;\r\n        right: 16px;\r\n    }\r\n\r\n    .ai-widget-toast {\r\n        top: 16px;\r\n        right: 16px;\r\n        left: 16px;\r\n        max-width: none;\r\n    }\r\n}";
+  var css_248z = "/* AI Voice Widget Modern Theme */\r\n:root {\r\n    --primary-gradient: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 50%, #8B5CF6 100%);\r\n    --bg-glass: rgba(255, 255, 255, 0.85);\r\n    --border-glass: rgba(255, 255, 255, 0.3);\r\n    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.15);\r\n    --text-main: #1e293b;\r\n    --text-muted: #64748b;\r\n}\r\n\r\n.hidden {\r\n    display: none !important;\r\n}\r\n\r\n/* Floating Button */\r\n.ai-widget-btn {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    width: 65px;\r\n    height: 65px;\r\n    border-radius: 22px;\r\n    background: var(--primary-gradient);\r\n    border: none;\r\n    cursor: pointer;\r\n    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);\r\n    z-index: 9999;\r\n    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    padding: 12px;\r\n}\r\n\r\n.ai-widget-btn:hover {\r\n    transform: scale(1.1) rotate(5deg);\r\n    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.6);\r\n}\r\n\r\n.ai-widget-btn svg {\r\n    width: 100%;\r\n    height: 100%;\r\n    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));\r\n}\r\n\r\n/* Modal Window */\r\n.ai-widget-modal {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    width: 380px;\r\n    background: var(--bg-glass);\r\n    backdrop-filter: blur(20px);\r\n    -webkit-backdrop-filter: blur(20px);\r\n    border-radius: 30px;\r\n    border: 1px solid var(--border-glass);\r\n    box-shadow: var(--shadow-premium);\r\n    z-index: 9998;\r\n    display: flex;\r\n    flex-direction: column;\r\n    opacity: 0;\r\n    transform: scale(0.9) translateY(40px);\r\n    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);\r\n    pointer-events: none;\r\n    overflow: hidden;\r\n    font-family: 'Outfit', 'Inter', -apple-system, sans-serif;\r\n}\r\n\r\n.ai-widget-modal.visible {\r\n    opacity: 1;\r\n    transform: scale(1) translateY(0);\r\n    pointer-events: all;\r\n}\r\n\r\n/* Header */\r\n.modal-header {\r\n    padding: 24px 28px;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    background: rgba(255, 255, 255, 0.4);\r\n}\r\n\r\n.header-content {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n}\r\n\r\n.header-logo {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.modal-header h3 {\r\n    margin: 0;\r\n    font-size: 18px;\r\n    font-weight: 700;\r\n    color: var(--text-main);\r\n}\r\n\r\n.close-btn {\r\n    background: rgba(0, 0, 0, 0.05);\r\n    border: none;\r\n    color: var(--text-muted);\r\n    width: 34px;\r\n    height: 34px;\r\n    border-radius: 50%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    cursor: pointer;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.close-btn:hover {\r\n    background: rgba(0, 0, 0, 0.1);\r\n    color: var(--text-main);\r\n    transform: rotate(90deg);\r\n}\r\n\r\n/* Body */\r\n.modal-body {\r\n    padding: 30px;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 24px;\r\n    min-height: 280px;\r\n}\r\n\r\n/* Visualizer Container */\r\n.visualizer-wrapper {\r\n    width: 100%;\r\n    position: relative;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n#ai-widget-visualizer {\r\n    width: 100%;\r\n    height: 140px;\r\n    border-radius: 20px;\r\n    background: rgba(14, 165, 233, 0.03);\r\n}\r\n\r\n/* Status */\r\n.status-container {\r\n    text-align: center;\r\n    animation: fadeIn 0.4s ease-out;\r\n}\r\n\r\n.status-text {\r\n    font-size: 16px;\r\n    color: var(--text-main);\r\n    font-weight: 600;\r\n    margin: 0;\r\n}\r\n\r\n.status-subtext {\r\n    font-size: 13px;\r\n    color: var(--text-muted);\r\n    margin-top: 4px;\r\n}\r\n\r\n/* Connecting Loader */\r\n.connecting-loader {\r\n    width: 60px;\r\n    height: 60px;\r\n    position: relative;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.loader-ring {\r\n    width: 100%;\r\n    height: 100%;\r\n    border: 4px solid rgba(14, 165, 233, 0.1);\r\n    border-top: 4px solid #0EA5E9;\r\n    border-radius: 50%;\r\n    animation: spin 1s linear infinite;\r\n}\r\n\r\n.loader-icon {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    width: 24px;\r\n    height: 24px;\r\n}\r\n\r\n/* Footer & Buttons */\r\n.modal-footer {\r\n    padding: 24px 30px 30px;\r\n    display: flex;\r\n    gap: 15px;\r\n}\r\n\r\n.btn {\r\n    padding: 14px 28px;\r\n    border: none;\r\n    border-radius: 18px;\r\n    cursor: pointer;\r\n    font-weight: 700;\r\n    font-size: 15px;\r\n    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n    flex: 1;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 8px;\r\n}\r\n\r\n.btn-primary {\r\n    background: var(--primary-gradient);\r\n    color: white;\r\n    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);\r\n}\r\n\r\n.btn-primary:hover:not(:disabled) {\r\n    transform: translateY(-2px);\r\n    box-shadow: 0 12px 25px rgba(14, 165, 233, 0.4);\r\n}\r\n\r\n.btn-danger {\r\n    background: #fff;\r\n    color: #ef4444;\r\n    border: 2px solid #fee2e2;\r\n}\r\n\r\n.btn-danger:hover:not(:disabled) {\r\n    background: #fee2e2;\r\n}\r\n\r\n.btn:disabled {\r\n    opacity: 0.5;\r\n    cursor: not-allowed;\r\n    filter: grayscale(1);\r\n}\r\n\r\n/* Base Animations */\r\n@keyframes spin {\r\n    to {\r\n        transform: rotate(360deg);\r\n    }\r\n}\r\n\r\n@keyframes fadeIn {\r\n    from {\r\n        opacity: 0;\r\n        transform: translateY(10px);\r\n    }\r\n\r\n    to {\r\n        opacity: 1;\r\n        transform: translateY(0);\r\n    }\r\n}\r\n\r\n/* Mobile */\r\n@media (max-width: 480px) {\r\n    .ai-widget-modal {\r\n        bottom: 0;\r\n        right: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        border-radius: 0;\r\n    }\r\n}";
   styleInject(css_248z);
 
   /**
@@ -15893,12 +15893,29 @@
       createButton() {
           const btn = document.createElement('div');
           btn.id = 'aipbx-floating-button';
+          btn.className = 'ai-widget-btn'; // Use modern class
+
+          // Simplified icon from aipbx_logo
           btn.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                <line x1="12" y1="19" x2="12" y2="23"/>
-                <line x1="8" y1="23" x2="16" y2="23"/>
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="white" fill-opacity="0.15"/>
+                <g filter="url(#glow)">
+                    <circle cx="50" cy="30" r="5" fill="white"/>
+                    <circle cx="75" cy="45" r="5" fill="white"/>
+                    <circle cx="50" cy="70" r="5" fill="white"/>
+                    <circle cx="25" cy="45" r="5" fill="white"/>
+                    <line x1="50" y1="30" x2="75" y2="45" stroke="white" stroke-width="3"/>
+                    <line x1="75" y1="45" x2="50" y2="70" stroke="white" stroke-width="3"/>
+                    <line x1="50" y1="70" x2="25" y2="45" stroke="white" stroke-width="3"/>
+                    <line x1="25" y1="45" x2="50" y2="30" stroke="white" stroke-width="3"/>
+                    <circle cx="50" cy="50" r="8" fill="white"/>
+                </g>
+                <defs>
+                    <filter id="glow" x="0" y="0" width="100" height="100">
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                </defs>
             </svg>
         `;
 
@@ -15927,7 +15944,7 @@
   }
 
   /**
-   * Audio Visualizer Component
+   * Modern Audio Visualizer Component
    */
   class AudioVisualizer {
       constructor(canvasElement) {
@@ -15936,6 +15953,9 @@
           this.analyser = null;
           this.animationId = null;
           this.audioContext = null;
+
+          // Match modern theme colors
+          this.colors = ['#06B6D4', '#0EA5E9', '#8B5CF6'];
       }
 
       connect(audioStream) {
@@ -15944,11 +15964,10 @@
               const source = this.audioContext.createMediaStreamSource(audioStream);
 
               this.analyser = this.audioContext.createAnalyser();
-              this.analyser.fftSize = 128;
-              this.analyser.smoothingTimeConstant = 0.8;
+              this.analyser.fftSize = 64; // Fewer bars for cleaner look
+              this.analyser.smoothingTimeConstant = 0.85;
 
               source.connect(this.analyser);
-
               this.draw();
           } catch (error) {
               console.error('Failed to create audio visualizer:', error);
@@ -15964,32 +15983,46 @@
           const dataArray = new Uint8Array(bufferLength);
           this.analyser.getByteFrequencyData(dataArray);
 
-          // Clear canvas
-          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          const width = this.canvas.width;
+          const height = this.canvas.height;
+          const centerY = height / 2;
 
-          // Draw bars
-          const barWidth = (this.canvas.width / bufferLength) * 2.5;
-          let x = 0;
+          // Clear canvas with slight transparency for a trail effect if desired
+          // but for this design clear is better for glassmorphism
+          this.ctx.clearRect(0, 0, width, height);
+
+          // Calculate bar metrics
+          const barWidth = (width / bufferLength) * 0.8;
+          const gap = (width / bufferLength) * 0.2;
+
+          // Center the bars horizontally
+          let x = (width - (barWidth + gap) * bufferLength) / 2;
 
           for (let i = 0; i < bufferLength; i++) {
-              const barHeight = (dataArray[i] / 255) * this.canvas.height * 0.8;
+              // Normalize height
+              const barHeight = (dataArray[i] / 255) * height * 0.6 + 4;
 
-              // Gradient color
-              const hue = (i / bufferLength) * 280 + 240; // Purple to blue
-              this.ctx.fillStyle = `hsl(${hue}, 70%, 60%)`;
+              // Gradient based on index
+              const gradient = this.ctx.createLinearGradient(0, centerY - barHeight / 2, 0, centerY + barHeight / 2);
+              gradient.addColorStop(0, '#8B5CF6'); // Violet
+              gradient.addColorStop(0.5, '#0EA5E9'); // Sky Blue
+              gradient.addColorStop(1, '#06B6D4'); // Cyan
 
-              // Draw rounded bar
+              this.ctx.fillStyle = gradient;
+
+              // Draw symmetric rounded bar from center
               this.ctx.beginPath();
+              const radius = barWidth / 2;
               this.ctx.roundRect(
                   x,
-                  this.canvas.height - barHeight,
-                  barWidth - 2,
+                  centerY - barHeight / 2,
+                  barWidth,
                   barHeight,
-                  2
+                  radius
               );
               this.ctx.fill();
 
-              x += barWidth;
+              x += barWidth + gap;
           }
       }
 
@@ -16009,7 +16042,7 @@
   }
 
   /**
-   * Modal Window Component
+   * Modern Modal Window Component
    */
   class ModalWindow extends EventEmitter {
       constructor(config) {
@@ -16022,23 +16055,73 @@
       create() {
           const modal = document.createElement('div');
           modal.className = 'ai-widget-modal';
+
+          // Use simplified logo icon for header
+          const logoIcon = `
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="url(#headerGrad)" fill-opacity="0.2"/>
+                <g>
+                    <circle cx="50" cy="30" r="4" fill="#0EA5E9"/>
+                    <circle cx="70" cy="45" r="4" fill="#8B5CF6"/>
+                    <circle cx="50" cy="65" r="4" fill="#0EA5E9"/>
+                    <circle cx="30" cy="45" r="4" fill="#8B5CF6"/>
+                    <line x1="50" y1="30" x2="70" y2="45" stroke="#0EA5E9" stroke-width="2"/>
+                    <line x1="70" y1="45" x2="50" y2="65" stroke="#8B5CF6" stroke-width="2"/>
+                    <line x1="50" y1="65" x2="30" y2="45" stroke="#0EA5E9" stroke-width="2"/>
+                    <circle cx="50" cy="47.5" r="7" fill="#0EA5E9"/>
+                </g>
+                <defs>
+                    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="100%" stop-color="#8B5CF6"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        `;
+
           modal.innerHTML = `
-      <div class="modal-header">
-        <h3>${this.config.assistantName || 'aiPBX widget'}</h3>
-        <button class="close-btn" aria-label="Close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <canvas id="ai-widget-visualizer" width="300" height="150"></canvas>
-        <div class="status">
-          <span class="status-icon">🎤</span>
-          <p class="status-text">Ready to talk...</p>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary btn-start">Start</button>
-        <button class="btn btn-danger btn-stop" disabled>Stop</button>
-      </div>
-    `;
+            <div class="modal-header">
+                <div class="header-content">
+                    <div class="header-logo">${logoIcon}</div>
+                    <h3>${this.config.assistantName || 'aiPBX Voice Assistant'}</h3>
+                </div>
+                <button class="close-btn" aria-label="Close">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="visualizer-wrapper">
+                    <canvas id="ai-widget-visualizer" width="320" height="140"></canvas>
+                </div>
+                
+                <div class="status-container" id="widget-status-area">
+                    <div class="status-ready" id="status-ready">
+                        <p class="status-text">Ready to talk</p>
+                        <p class="status-subtext">Click start to begin conversation</p>
+                    </div>
+                    
+                    <div class="connecting-loader hidden" id="status-connecting">
+                        <div class="loader-ring"></div>
+                        <div class="loader-icon">${logoIcon}</div>
+                    </div>
+                    
+                    <div class="status-active hidden" id="status-active">
+                        <p class="status-text">Listening...</p>
+                        <p class="status-subtext">AI is ready to help you</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-start">
+                    <span>Start Conversation</span>
+                </button>
+                <button class="btn btn-danger btn-stop hidden" disabled>
+                    <span>Stop Call</span>
+                </button>
+            </div>
+        `;
 
           // Event listeners
           modal.querySelector('.close-btn').addEventListener('click', () => {
@@ -16047,12 +16130,10 @@
           });
 
           modal.querySelector('.btn-start').addEventListener('click', () => {
-              console.log('[aiPBX] Modal: Start button clicked');
               this.emit('start');
           });
 
           modal.querySelector('.btn-stop').addEventListener('click', () => {
-              console.log('[aiPBX] Modal: Stop button clicked');
               this.emit('stop');
           });
 
@@ -16072,41 +16153,52 @@
               if (document.body.contains(this.modal)) {
                   this.modal.remove();
               }
-          }, 300);
+          }, 500);
       }
 
       setStatus(state, message) {
-          const statusText = this.modal.querySelector('.status-text');
-          const statusIcon = this.modal.querySelector('.status-icon');
+          const readyArea = this.modal.querySelector('#status-ready');
+          const connectingArea = this.modal.querySelector('#status-connecting');
+          const activeArea = this.modal.querySelector('#status-active');
           const startBtn = this.modal.querySelector('.btn-start');
           const stopBtn = this.modal.querySelector('.btn-stop');
+          this.modal.querySelector('.status-text');
 
-          statusText.textContent = message;
+          // Hide all areas first
+          [readyArea, connectingArea, activeArea].forEach(el => el?.classList.add('hidden'));
 
           switch (state) {
               case 'connecting':
-                  statusIcon.textContent = '⏳';
-                  startBtn.disabled = true;
+                  connectingArea?.classList.remove('hidden');
+                  startBtn.classList.add('hidden');
+                  stopBtn.classList.remove('hidden');
                   stopBtn.disabled = true;
                   break;
 
               case 'connected':
-                  statusIcon.textContent = '✅';
-                  startBtn.disabled = true;
+                  activeArea?.classList.remove('hidden');
+                  startBtn.classList.add('hidden');
+                  stopBtn.classList.remove('hidden');
                   stopBtn.disabled = false;
                   break;
 
               case 'error':
-                  statusIcon.textContent = '❌';
+                  readyArea?.classList.remove('hidden');
+                  this.modal.querySelector('.status-subtext').textContent = message || 'An error occurred. Please try again.';
+                  this.modal.querySelector('.status-subtext').style.color = '#ef4444';
+                  startBtn.classList.remove('hidden');
+                  stopBtn.classList.add('hidden');
                   startBtn.disabled = false;
-                  stopBtn.disabled = true;
                   break;
 
               case 'ready':
               default:
-                  statusIcon.textContent = '🎤';
+                  readyArea?.classList.remove('hidden');
+                  this.modal.querySelector('.status-subtext').textContent = 'Click start to begin conversation';
+                  this.modal.querySelector('.status-subtext').style.color = '';
+                  startBtn.classList.remove('hidden');
+                  stopBtn.classList.add('hidden');
                   startBtn.disabled = false;
-                  stopBtn.disabled = true;
           }
       }
 
@@ -16160,7 +16252,7 @@
       async init() {
           try {
               if ("development" !== 'production') {
-                  console.log('%c[aiPBX Widget] Version: 1.1.5', 'color: #667eea; font-weight: bold; font-size: 12px;');
+                  console.log('%c[aiPBX Widget] Version: 1.1.6', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget with key:', this.publicKey);
               }
 
@@ -16328,7 +16420,7 @@
 
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.1.5',
+              version: '1.1.6',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),
