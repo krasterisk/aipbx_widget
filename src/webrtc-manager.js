@@ -39,8 +39,10 @@ export class WebRTCManager extends EventEmitter {
             // 1. Initialize UserAgent
             this.userAgent = new UserAgent({
                 uri: UserAgent.makeURI(`sip:aipbxwidget@${sipDomain}`),
+                displayName: config.assistantName || 'Web Widget',
                 transportOptions: {
-                    server: sipServer
+                    server: sipServer,
+                    connectionTimeout: 10
                 },
                 delegate: {
                     onConnect: () => this.logger.log('Connected to SIP server'),
@@ -60,7 +62,8 @@ export class WebRTCManager extends EventEmitter {
             const target = UserAgent.makeURI(`sip:${extension}@${sipDomain}`);
 
             const extraHeaders = [
-                `X-Widget-Key: ${publicKey}`
+                `X-AiPBX-Widget-Key: ${publicKey}`,
+                `X-AiPBX-Widget-Name: ${config.assistantName}`
             ];
 
             this.logger.debug('Sending INVITE with headers:', extraHeaders);
