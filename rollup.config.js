@@ -3,7 +3,9 @@ import postcss from 'rollup-plugin-postcss';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
+import { readFileSync } from 'fs';
 
+const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
 const production = process.env.NODE_ENV === 'production';
 
 export default {
@@ -18,7 +20,8 @@ export default {
     plugins: [
         replace({
             preventAssignment: true,
-            'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development')
+            'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
+            '__WIDGET_VERSION__': pkg.version
         }),
         nodeResolve({
             browser: true

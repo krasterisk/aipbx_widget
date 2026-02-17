@@ -8,7 +8,6 @@ import { Translator } from './utils/translations.js';
 
 /**
  * Main AI Voice Widget Class
- * Version: 1.2.8
  */
 class AIVoiceWidget {
     constructor(token, apiUrl) {
@@ -31,7 +30,7 @@ class AIVoiceWidget {
     async init(options = {}) {
         try {
             if (process.env.NODE_ENV !== 'production') {
-                console.log('%c[aiPBX Widget] Version: 1.2.8', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                console.log(`%c[aiPBX Widget] Version: ${'__WIDGET_VERSION__'}`, 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                 this.logger.log('Initializing widget...');
             }
 
@@ -254,7 +253,7 @@ class AIVoiceWidget {
 
     exposePublicAPI() {
         window.AIWidget = {
-            version: '1.2.8',
+            version: '__WIDGET_VERSION__',
             show: () => this.modal.show(),
             hide: () => this.modal.hide(),
             start: () => this.startSession(),

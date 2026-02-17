@@ -16382,7 +16382,6 @@
 
   /**
    * Main AI Voice Widget Class
-   * Version: 1.2.8
    */
   class AIVoiceWidget {
       constructor(token, apiUrl) {
@@ -16405,7 +16404,7 @@
       async init(options = {}) {
           try {
               if ("development" !== 'production') {
-                  console.log('%c[aiPBX Widget] Version: 1.2.8', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                  console.log(`%c[aiPBX Widget] Version: ${'1.3.1'}`, 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget...');
               }
 
@@ -16628,7 +16627,7 @@
 
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.2.8',
+              version: '1.3.1',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),
