@@ -44,18 +44,27 @@ jobs:
           npm run build:prod
 
       - name: Commit dist to repo
+        id: commit-dist
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add dist/
-          git diff --staged --quiet && echo "No dist changes" || git commit -m "Build dist v${VERSION} [skip ci]"
-          git push
+          if git diff --staged --quiet; then
+            echo "No dist changes"
+            echo "NEW_SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Build dist v${VERSION} [skip ci]"
+            git push
+            echo "NEW_SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VERSION }}
           name: Release v${{ env.VERSION }}
+          target_commitish: ${{ steps.commit-dist.outputs.NEW_SHA }}
           generate_release_notes: true
           files: |
             dist/widget.min.js
+            dist/widget.dev.js
