@@ -11,14 +11,14 @@ import { Translator } from './utils/translations.js';
  * Version: 1.2.8
  */
 class AIVoiceWidget {
-    constructor(publicKey, apiUrl) {
-        this.publicKey = publicKey;
+    constructor(token, apiUrl) {
+        this.token = token;
         this.apiUrl = apiUrl;
         this.config = null;
         this.logger = new Logger('aiPBX widget');
 
         // Components
-        this.api = new ApiClient(apiUrl);
+        this.api = new ApiClient(apiUrl, token);
         this.webrtc = new WebRTCManager(this.api);
         this.floatingButton = new FloatingButton();
         this.modal = null;
@@ -32,11 +32,11 @@ class AIVoiceWidget {
         try {
             if (process.env.NODE_ENV !== 'production') {
                 console.log('%c[aiPBX Widget] Version: 1.2.8', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
-                this.logger.log('Initializing widget with key:', this.publicKey);
+                this.logger.log('Initializing widget...');
             }
 
             // Fetch configuration
-            this.config = await this.api.fetchConfig(this.publicKey);
+            this.config = await this.api.fetchConfig();
 
             // Safe parsing for stringified JSON fields (common with some backends)
             if (typeof this.config.appearance === 'string') {
@@ -156,7 +156,7 @@ class AIVoiceWidget {
 
     async startSession() {
         try {
-            await this.webrtc.startSession(this.publicKey, this.config);
+            await this.webrtc.startSession(this.token, this.config);
         } catch (error) {
             this.logger.error('Failed to start session:', error);
         }
@@ -172,7 +172,7 @@ class AIVoiceWidget {
             this.logger.log('Executing parallel hangup tasks...');
             const stopTasks = [
                 this.webrtc.stopSession().then(() => this.logger.log('SIP stop done')),
-                this.api.sendHangup(this.publicKey).then(() => this.logger.log('HTTP wait finished'))
+                this.api.sendHangup().then(() => this.logger.log('HTTP wait finished'))
             ];
 
             await Promise.allSettled(stopTasks);
@@ -290,17 +290,24 @@ class AIVoiceWidget {
         return;
     }
 
-    const publicKey = scriptTag.getAttribute('data-key');
-    const apiUrl = scriptTag.getAttribute('data-api') || 'http://localhost:3000';
+    const token = scriptTag.getAttribute('data-token');
+    if (!token) {
+        console.error('[aiPBX widget] Missing data-token attribute');
+        return;
+    }
 
-    if (!publicKey) {
-        console.error('[aiPBX widget] Missing data-key attribute');
+    let apiUrl;
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        apiUrl = payload.aud;
+    } catch (e) {
+        console.error('[aiPBX widget] Invalid data-token');
         return;
     }
 
     const initWidget = () => {
         if (window.__aiPBXWidgetInstance) return;
-        const widget = new AIVoiceWidget(publicKey, apiUrl);
+        const widget = new AIVoiceWidget(token, apiUrl);
         widget.init();
         window.__aiPBXWidgetInstance = widget;
     };

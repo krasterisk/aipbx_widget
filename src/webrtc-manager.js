@@ -19,10 +19,10 @@ export class WebRTCManager extends EventEmitter {
 
     /**
      * Start a SIP session
-     * @param {string} publicKey - The widget public key
+     * @param {string} token - The widget JWT token
      * @param {Object} config - The widget configuration from backend
      */
-    async startSession(publicKey, config) {
+    async startSession(token, config) {
         try {
             this.logger.log('Starting SIP session...');
 
@@ -62,7 +62,7 @@ export class WebRTCManager extends EventEmitter {
             const target = UserAgent.makeURI(`sip:${extension}@${sipDomain}`);
 
             const extraHeaders = [
-                `X-AiPBX-Widget-Key: ${publicKey}`,
+                `X-AiPBX-Widget-Token: ${token}`,
                 `X-AiPBX-Widget-Name: ${config.assistantName}`
             ];
 

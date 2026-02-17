@@ -4,14 +4,17 @@ import { Logger } from './utils/logger.js';
  * API Client for widget backend communication
  */
 export class ApiClient {
-    constructor(baseUrl) {
+    constructor(baseUrl, token) {
         this.baseUrl = baseUrl;
+        this.token = token;
         this.logger = new Logger('ApiClient');
     }
 
-    async fetchConfig(publicKey) {
+    async fetchConfig() {
         try {
-            const response = await fetch(`${this.baseUrl}/widget/config/${publicKey}`);
+            const response = await fetch(`${this.baseUrl}/widget/config`, {
+                headers: { 'Authorization': `Bearer ${this.token}` }
+            });
 
             if (!response.ok) {
                 if (response.status === 404) {
@@ -32,15 +35,15 @@ export class ApiClient {
         }
     }
 
-    async sendHangup(publicKey) {
+    async sendHangup() {
         try {
-            this.logger.log('Sending HTTP hangup for key:', publicKey);
+            this.logger.log('Sending HTTP hangup');
             await fetch(`${this.baseUrl}/widget/hangup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ publicKey })
+                    'Authorization': `Bearer ${this.token}`
+                }
             });
         } catch (error) {
             this.logger.error('Failed to send HTTP hangup:', error);
