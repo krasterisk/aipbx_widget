@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -38,7 +40,16 @@ jobs:
       - name: Build
         run: |
           mkdir -p dist
-          npm run build
+          npm run build:dev
+          npm run build:prod
+
+      - name: Commit dist to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/
+          git diff --staged --quiet && echo "No dist changes" || git commit -m "Build dist v${VERSION} [skip ci]"
+          git push
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
