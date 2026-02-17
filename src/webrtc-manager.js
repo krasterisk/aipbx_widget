@@ -61,8 +61,11 @@ export class WebRTCManager extends EventEmitter {
             // 2. Create Inviter (call to extension)
             const target = UserAgent.makeURI(`sip:${extension}@${sipDomain}`);
 
+            // Extract widget key from JWT token
+            const widgetKey = JSON.parse(atob(token.split('.')[1])).sub;
+
             const extraHeaders = [
-                `X-AiPBX-Widget-Token: ${token}`,
+                `X-AiPBX-Widget-Key: ${widgetKey}`,
                 `X-AiPBX-Widget-Name: ${config.assistantName}`
             ];
 

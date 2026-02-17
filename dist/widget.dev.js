@@ -16404,7 +16404,7 @@
       async init(options = {}) {
           try {
               if ("development" !== 'production') {
-                  console.log(`%c[aiPBX Widget] Version: ${'1.3.1'}`, 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                  console.log(`%c[aiPBX Widget] Version: ${'1.3.2'}`, 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget...');
               }
 
@@ -16627,7 +16627,7 @@
 
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.3.1',
+              version: '1.3.2',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),
