@@ -15718,8 +15718,11 @@
               // 2. Create Inviter (call to extension)
               const target = UserAgent.makeURI(`sip:${extension}@${sipDomain}`);
 
+              // Extract widget key from JWT token
+              const widgetKey = JSON.parse(atob(token.split('.')[1])).sub;
+
               const extraHeaders = [
-                  `X-AiPBX-Widget-Token: ${token}`,
+                  `X-AiPBX-Widget-Key: ${widgetKey}`,
                   `X-AiPBX-Widget-Name: ${config.assistantName}`
               ];
 
@@ -16404,7 +16407,7 @@
       async init(options = {}) {
           try {
               if ("development" !== 'production') {
-                  console.log(`%c[aiPBX Widget] Version: ${'1.3.2'}`, 'color: #06B6D4; font-weight: bold; font-size: 12px;');
+                  console.log(`%c[aiPBX Widget] Version: ${'1.3.4'}`, 'color: #06B6D4; font-weight: bold; font-size: 12px;');
                   this.logger.log('Initializing widget...');
               }
 
@@ -16627,7 +16630,7 @@
 
       exposePublicAPI() {
           window.AIWidget = {
-              version: '1.3.2',
+              version: '1.3.4',
               show: () => this.modal.show(),
               hide: () => this.modal.hide(),
               start: () => this.startSession(),
