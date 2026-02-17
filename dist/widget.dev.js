@@ -69,14 +69,17 @@
    * API Client for widget backend communication
    */
   class ApiClient {
-      constructor(baseUrl) {
+      constructor(baseUrl, token) {
           this.baseUrl = baseUrl;
+          this.token = token;
           this.logger = new Logger$1('ApiClient');
       }
 
-      async fetchConfig(publicKey) {
+      async fetchConfig() {
           try {
-              const response = await fetch(`${this.baseUrl}/widget/config/${publicKey}`);
+              const response = await fetch(`${this.baseUrl}/widget/config`, {
+                  headers: { 'Authorization': `Bearer ${this.token}` }
+              });
 
               if (!response.ok) {
                   if (response.status === 404) {
@@ -97,15 +100,15 @@
           }
       }
 
-      async sendHangup(publicKey) {
+      async sendHangup() {
           try {
-              this.logger.log('Sending HTTP hangup for key:', publicKey);
+              this.logger.log('Sending HTTP hangup');
               await fetch(`${this.baseUrl}/widget/hangup`, {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ publicKey })
+                      'Authorization': `Bearer ${this.token}`
+                  }
               });
           } catch (error) {
               this.logger.error('Failed to send HTTP hangup:', error);
@@ -15673,10 +15676,10 @@
 
       /**
        * Start a SIP session
-       * @param {string} publicKey - The widget public key
+       * @param {string} token - The widget JWT token
        * @param {Object} config - The widget configuration from backend
        */
-      async startSession(publicKey, config) {
+      async startSession(token, config) {
           try {
               this.logger.log('Starting SIP session...');
 
@@ -15693,8 +15696,10 @@
               // 1. Initialize UserAgent
               this.userAgent = new UserAgent({
                   uri: UserAgent.makeURI(`sip:aipbxwidget@${sipDomain}`),
+                  displayName: config.assistantName || 'Web Widget',
                   transportOptions: {
-                      server: sipServer
+                      server: sipServer,
+                      connectionTimeout: 10
                   },
                   delegate: {
                       onConnect: () => this.logger.log('Connected to SIP server'),
@@ -15714,7 +15719,8 @@
               const target = UserAgent.makeURI(`sip:${extension}@${sipDomain}`);
 
               const extraHeaders = [
-                  `X-Widget-Key: ${publicKey}`
+                  `X-AiPBX-Widget-Token: ${token}`,
+                  `X-AiPBX-Widget-Name: ${config.assistantName}`
               ];
 
               this.logger.debug('Sending INVITE with headers:', extraHeaders);
@@ -16379,14 +16385,14 @@
    * Version: 1.2.8
    */
   class AIVoiceWidget {
-      constructor(publicKey, apiUrl) {
-          this.publicKey = publicKey;
+      constructor(token, apiUrl) {
+          this.token = token;
           this.apiUrl = apiUrl;
           this.config = null;
           this.logger = new Logger$1('aiPBX widget');
 
           // Components
-          this.api = new ApiClient(apiUrl);
+          this.api = new ApiClient(apiUrl, token);
           this.webrtc = new WebRTCManager(this.api);
           this.floatingButton = new FloatingButton();
           this.modal = null;
@@ -16400,11 +16406,11 @@
           try {
               if ("development" !== 'production') {
                   console.log('%c[aiPBX Widget] Version: 1.2.8', 'color: #06B6D4; font-weight: bold; font-size: 12px;');
-                  this.logger.log('Initializing widget with key:', this.publicKey);
+                  this.logger.log('Initializing widget...');
               }
 
               // Fetch configuration
-              this.config = await this.api.fetchConfig(this.publicKey);
+              this.config = await this.api.fetchConfig();
 
               // Safe parsing for stringified JSON fields (common with some backends)
               if (typeof this.config.appearance === 'string') {
@@ -16524,7 +16530,7 @@
 
       async startSession() {
           try {
-              await this.webrtc.startSession(this.publicKey, this.config);
+              await this.webrtc.startSession(this.token, this.config);
           } catch (error) {
               this.logger.error('Failed to start session:', error);
           }
@@ -16540,7 +16546,7 @@
               this.logger.log('Executing parallel hangup tasks...');
               const stopTasks = [
                   this.webrtc.stopSession().then(() => this.logger.log('SIP stop done')),
-                  this.api.sendHangup(this.publicKey).then(() => this.logger.log('HTTP wait finished'))
+                  this.api.sendHangup().then(() => this.logger.log('HTTP wait finished'))
               ];
 
               await Promise.allSettled(stopTasks);
@@ -16658,17 +16664,24 @@
           return;
       }
 
-      const publicKey = scriptTag.getAttribute('data-key');
-      const apiUrl = scriptTag.getAttribute('data-api') || 'http://localhost:3000';
+      const token = scriptTag.getAttribute('data-token');
+      if (!token) {
+          console.error('[aiPBX widget] Missing data-token attribute');
+          return;
+      }
 
-      if (!publicKey) {
-          console.error('[aiPBX widget] Missing data-key attribute');
+      let apiUrl;
+      try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          apiUrl = payload.aud;
+      } catch (e) {
+          console.error('[aiPBX widget] Invalid data-token');
           return;
       }
 
       const initWidget = () => {
           if (window.__aiPBXWidgetInstance) return;
-          const widget = new AIVoiceWidget(publicKey, apiUrl);
+          const widget = new AIVoiceWidget(token, apiUrl);
           widget.init();
           window.__aiPBXWidgetInstance = widget;
       };
